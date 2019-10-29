@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Block Assessment Survey</string>
+
+    <string name="title_activity_survey_selector">SurveySelectorActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_get_gps_location">getGpsLocationActivity</string>
+    <string name="show_map_string">Get Location</string>
+    <string name="location_string">Enter Address</string>
+    <string name="submit_string">Submit</string>
 </resources>
