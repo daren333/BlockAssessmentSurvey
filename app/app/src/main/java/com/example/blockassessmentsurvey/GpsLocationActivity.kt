@@ -63,11 +63,18 @@ class GpsLocationActivity : AppCompatActivity() {
     }
 
     private fun submit() {
-        if(addrText.text.isNotBlank()) {
-            Toast.makeText(applicationContext, "Thanks!", Toast.LENGTH_LONG).show()
+        if(addrText.text.isBlank()) {
+            Toast.makeText(applicationContext, "Please enter valid address to continue.", Toast.LENGTH_LONG).show()
+            return
+        }
+        // Check if real address entered
+        val addressString = addrText.text.toString()
+        val addressList = Geocoder(this).getFromLocationName(addressString, 3)
+        if(addressList.isEmpty()){
+            Toast.makeText(applicationContext, "Please enter valid address to continue.", Toast.LENGTH_LONG).show()
         }
         else {
-            Toast.makeText(applicationContext, "Please enter valid address to continue.", Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, "Thanks!", Toast.LENGTH_LONG).show()
         }
     }
 
