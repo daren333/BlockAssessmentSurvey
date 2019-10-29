@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -29,7 +30,8 @@ class GpsLocationActivity : AppCompatActivity() {
 
     // UI elements
     private lateinit var addrText: EditText
-    private lateinit var button: Button
+    private lateinit var getLocationButton: Button
+    private lateinit var submitButton : Button
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
@@ -49,14 +51,25 @@ class GpsLocationActivity : AppCompatActivity() {
 
 
         // Initialize UI elements
-        button = findViewById(R.id.mapButton)
         addrText = findViewById(R.id.location)
+        getLocationButton = findViewById(R.id.mapButton)
+        submitButton = findViewById(R.id.submitButton)
+
 
         // Link UI elements to actions in code
-        button.setOnClickListener { loadAddress() }
+        getLocationButton.setOnClickListener { loadAddress() }
+        submitButton.setOnClickListener { submit() }
 
     }
 
+    private fun submit() {
+        if(addrText.text.isNotBlank()) {
+            Toast.makeText(applicationContext, "Thanks!", Toast.LENGTH_LONG).show()
+        }
+        else {
+            Toast.makeText(applicationContext, "Please enter valid address to continue.", Toast.LENGTH_LONG).show()
+        }
+    }
 
 
     private fun loadAddress() {
@@ -82,7 +95,6 @@ class GpsLocationActivity : AppCompatActivity() {
                     val address = addressList[0].getAddressLine(0)
                     Log.i(TAG, "Address: $address")
                     addrText.setText(address)
-
 
                     // Create Intent object for starting Google Maps application
                     /*val geoIntent = Intent(
