@@ -32,7 +32,6 @@ class GpsLocationActivity : AppCompatActivity() {
     private lateinit var button: Button
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var geocoder: Geocoder
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,8 +49,8 @@ class GpsLocationActivity : AppCompatActivity() {
 
 
         // Initialize UI elements
-
         button = findViewById(R.id.mapButton)
+        addrText = findViewById(R.id.location)
 
         // Link UI elements to actions in code
         button.setOnClickListener { loadAddress() }
@@ -79,9 +78,12 @@ class GpsLocationActivity : AppCompatActivity() {
                     val longitude = location!!.longitude.toString()
                     Log.i(TAG, "Latitude: $latitude")
                     Log.i(TAG, "Longitude: $longitude")
-                    val address_list = Geocoder(this).getFromLocation(latitude.toDouble(), longitude.toDouble(), 3)
-                    val address = address_list[0].getAddressLine(0)
+                    val addressList = Geocoder(this).getFromLocation(latitude.toDouble(), longitude.toDouble(), 3)
+                    val address = addressList[0].getAddressLine(0)
                     Log.i(TAG, "Address: $address")
+                    addrText.setText(address)
+
+
                     // Create Intent object for starting Google Maps application
                     /*val geoIntent = Intent(
                         Intent.ACTION_VIEW, Uri
