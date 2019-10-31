@@ -2,7 +2,6 @@ package com.example.blockassessmentsurvey
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.*
@@ -12,7 +11,9 @@ class SurveyManager : AppCompatActivity() {
     private lateinit var databaseSurveys: DatabaseReference
     private lateinit var survey1Btn: Button
     private lateinit var survey2Btn: Button
-    private lateinit var surveyQuestions: MutableList<String>
+    private lateinit var s1Questions: MutableList<String>
+    private lateinit var s2Questions: MutableList<String>
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,24 +22,27 @@ class SurveyManager : AppCompatActivity() {
 
         //get reference to database
         database = FirebaseDatabase.getInstance().reference
-        databaseSurveys = FirebaseDatabase.getInstance().getReference("surveys")
+        databaseSurveys = FirebaseDatabase.getInstance().getReference("Questions")
+        s1Questions = ArrayList()
+        s2Questions = ArrayList()
+
 
         //initialize views
         initializeViews()
 
         //depending on which button is pushed, query the database to get relevant questions
         survey1Btn.setOnClickListener {
-            getSurveyQuestions(SURVEY1_STRING)
+            startSurvey(SURVEY1_STRING)
         }
         survey2Btn.setOnClickListener {
-            getSurveyQuestions(SURVEY2_STRING)
+            startSurvey(SURVEY1_STRING)
         }
     }
 
-    private fun getSurveyQuestions(survey: String){
-        var questions = databaseSurveys.child(survey)
+    private fun startSurvey(survey: String){
+        // for each question, send intent to correct question type along with question
         val intent = Intent(this@SurveyManager, HelloActivity::class.java)
-        intent.putExtra("text", questions.child("q1").child("q1a").toString())
+        intent.putExtra("text", s1Questions.toString())
         startActivity(intent)
     }
 
@@ -51,7 +55,10 @@ class SurveyManager : AppCompatActivity() {
         super.onStart()
         databaseSurveys.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                Log.d(TAG, "Data changed")
+                s1Questions.clear()
+                dataSnapshot.child(SURVEY1_STRING).children.mapNotNullTo(s1Questions) { it.key.toString() }
+                s2Questions.clear()
+                dataSnapshot.child(SURVEY1_STRING).children.mapNotNullTo(s2Questions) { it.toString() }
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -61,7 +68,7 @@ class SurveyManager : AppCompatActivity() {
     }
 
     companion object {
-        private val SURVEY1_STRING = "survey1"
+        private val SURVEY1_STRING = "Table_1_Public_Service"
         private val SURVEY2_STRING = "survey2"
         private val QUESTION_STRING = "questionstring"
         private val TAG = "BAS-SurveyManager"
