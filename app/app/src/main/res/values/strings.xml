@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Block Assessment Survey</string>
+    <string name="title_activity_counter">CounterActivity</string>
+    <string name="holder">HolderText</string>
 </resources>
