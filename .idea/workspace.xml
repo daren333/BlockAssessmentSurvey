@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="b64f02f3-6bef-4482-9027-c33a62a695ac" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/app/app/src/main/java/com/example/blockassessmentsurvey/CounterActivity" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app/app/src/main/java/com/example/blockassessmentsurvey/Test" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app/src/main/AndroidManifest.xml" afterDir="false" />
     </list>
+=======
+    <list default="true" id="75623dfa-4b3a-4514-b6e0-265656052cb5" name="Default Changelist" comment="" />
+>>>>>>> surveyManager
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,6 +17,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DefaultGradleProjectSettings">
+<<<<<<< HEAD
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
@@ -21,6 +26,17 @@
         <entry file="file://$PROJECT_DIR$/app/app/src/main/java/com/example/blockassessmentsurvey/HelloActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
+=======
+    <option name="testRunner" value="GRADLE" />
+    <option name="delegatedBuild" value="true" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/app/src/main/java/com/example/blockassessmentsurvey/HelloActivity.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+>>>>>>> surveyManager
               <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
             </state>
           </provider>
@@ -29,6 +45,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/app/src/main/java/com/example/blockassessmentsurvey/LoginActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="68">
               <caret line="16" column="6" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
             </state>
@@ -61,21 +78,33 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="221">
               <caret line="13" column="31" selection-start-line="13" selection-start-column="31" selection-end-line="13" selection-end-column="31" />
+=======
+            <state relative-caret-position="60">
+              <caret line="16" column="39" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
+>>>>>>> surveyManager
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+<<<<<<< HEAD
         <entry file="file://$PROJECT_DIR$/app/app/src/main/java/com/example/blockassessmentsurvey/RegistrationActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="102">
               <caret line="15" column="6" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+=======
+        <entry file="file://$PROJECT_DIR$/app/app/src/main/java/com/example/blockassessmentsurvey/MainActivity.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="435">
+              <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+>>>>>>> surveyManager
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
   </component>
+<<<<<<< HEAD
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -95,21 +124,38 @@
       </list>
     </option>
   </component>
+=======
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+>>>>>>> surveyManager
   <component name="ProjectConfigurationFiles">
     <option name="files">
       <list>
         <option value="$PROJECT_DIR$/.idea/BlockAssessmentSurvey.iml" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/.idea/vcs.xml" />
         <option value="$PROJECT_DIR$/.idea/modules.xml" />
+=======
+        <option value="$PROJECT_DIR$/.idea/modules.xml" />
+        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
+>>>>>>> surveyManager
         <option value="$PROJECT_DIR$/.idea/codeStyles/Project.xml" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
+<<<<<<< HEAD
     <option name="x" value="-10" />
     <option name="y" value="-10" />
     <option name="width" value="1940" />
     <option name="height" value="1050" />
+=======
+    <option name="x" value="179" />
+    <option name="y" value="111" />
+    <option name="width" value="1082" />
+    <option name="height" value="678" />
+>>>>>>> surveyManager
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -200,8 +246,14 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+<<<<<<< HEAD
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/app" />
+=======
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+>>>>>>> surveyManager
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
   </component>
   <component name="RunDashboard">
@@ -221,15 +273,24 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+<<<<<<< HEAD
       <changelist id="b64f02f3-6bef-4482-9027-c33a62a695ac" name="Default Changelist" comment="" />
       <created>1572802610892</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1572802610892</updated>
+=======
+      <changelist id="75623dfa-4b3a-4514-b6e0-265656052cb5" name="Default Changelist" comment="" />
+      <created>1572107040536</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1572107040536</updated>
+>>>>>>> surveyManager
     </task>
     <servers />
   </component>
   <component name="ToolWindowManager">
+<<<<<<< HEAD
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
@@ -274,19 +335,50 @@
     <entry file="file://$PROJECT_DIR$/app/app/src/main/java/com/example/blockassessmentsurvey/HelloActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
+=======
+    <frame x="0" y="23" width="1440" height="808" extended-state="6" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" visible="true" weight="0.32980973" />
+      <window_info id="Structure" side_tool="true" />
+      <window_info id="Image Layers" />
+      <window_info id="Designer" />
+      <window_info id="Resources Explorer" />
+      <window_info id="Capture Tool" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info id="Captures" order="0" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="TODO" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="right" id="Theme Preview" />
+      <window_info anchor="right" id="Palette&#9;" />
+    </layout>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/app/src/main/java/com/example/blockassessmentsurvey/HelloActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+>>>>>>> surveyManager
           <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/app/src/main/java/com/example/blockassessmentsurvey/LoginActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="68">
           <caret line="16" column="6" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
+=======
+        <state relative-caret-position="60">
+          <caret line="16" column="39" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
+>>>>>>> surveyManager
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/app/src/main/java/com/example/blockassessmentsurvey/MainActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="85">
           <caret line="8" selection-start-line="8" selection-end-line="8" />
         </state>
@@ -313,6 +405,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="15" column="6" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+=======
+        <state relative-caret-position="435">
+          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+>>>>>>> surveyManager
         </state>
       </provider>
     </entry>

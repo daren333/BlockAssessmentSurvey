@@ -62,7 +62,7 @@ class LoginActivity : AppCompatActivity() {
                     val curr_uid = mAuth!!.currentUser!!.uid
                     //val curr_uid = mDatabaseReference!!.push().key
                     Log.i("Lab-Fire", "Sending $curr_uid")
-                    val intent = Intent(this@LoginActivity, HelloActivity::class.java)
+                    val intent = Intent(this@LoginActivity, SurveyManager::class.java)
                     intent.putExtra("UserID", curr_uid)
                     startActivity(intent)
                 } else {
