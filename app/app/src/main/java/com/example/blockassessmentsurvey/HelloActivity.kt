@@ -1,21 +1,31 @@
 package com.example.blockassessmentsurvey
 
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class HelloActivity : AppCompatActivity() {
     private lateinit var text: TextView
+    private lateinit var exitBtn: Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hello)
 
+        text = findViewById(R.id.textView)
+        exitBtn = findViewById(R.id.exit_button)
+
+
         val intent = intent
         val textToShow = intent.getStringExtra("text")
-        text = findViewById(R.id.textView)
         if(textToShow != null){
             text.text = textToShow
+        }
+
+        exitBtn.setOnClickListener {
+            finish()
         }
     }
 }
