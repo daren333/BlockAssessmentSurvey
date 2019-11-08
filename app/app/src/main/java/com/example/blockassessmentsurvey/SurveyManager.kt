@@ -46,16 +46,20 @@ class SurveyManager : AppCompatActivity() {
         //depending on what survey they chose, get the first question to ask
         var firstQuestion: Question? = null
         if(survey == SURVEY1_STRING){
-            firstQuestion = s1Questions[S1_Q1]!!
+            firstQuestion = s1Questions[S1_Q1]
         }
         // Send intent to correct question type along with question
-        var intent: Intent? = null
-        if(firstQuestion!!.qType == "Clicker"){
-            intent = Intent(this@SurveyManager, HelloActivity::class.java)
-        }
-        val tosend = firstQuestion.qText
+//        var intent: Intent? = null
+        var intent = Intent(this@SurveyManager, TextActivity::class.java)
+//        for testing also changed the class
+//        firstQuestion?.qType = "Clicker"
+//
+//        if(firstQuestion?.qType == "Clicker"){
+//            intent = Intent(this@SurveyManager, CounterActivity::class.java)
+//        }
+        val tosend = firstQuestion?.qText
         Log.i(TAG, "Sending first question: $tosend")
-        intent!!.putExtra("text", firstQuestion.qText)
+        intent?.putExtra("text", firstQuestion?.qText)
         startActivityForResult(intent, 1)
     }
 

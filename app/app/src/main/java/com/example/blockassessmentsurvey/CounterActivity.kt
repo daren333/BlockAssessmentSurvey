@@ -39,24 +39,43 @@ class CounterActivity : AppCompatActivity() {
         doneBtn = findViewById(R.id.done)
 
         addCount?.setOnClickListener({
+            val txt = countText?.text.toString()
 
-            var cnt = countText?.text.toString().toInt()
-            cnt = cnt + 1
-            countText?.setText(cnt.toString())
+            if(txt.compareTo("") == 0){
+                countText?.setText(1.toString())
+            }
+            else {
+                var cnt = txt.toInt()
+                cnt = cnt + 1
+                countText?.setText(cnt.toString())
+            }
         })
 
         removeCount?.setOnClickListener({
 
-            var cnt = countText?.text.toString().toInt()
-            cnt = cnt - 1
-            countText?.setText(cnt.toString())
+            val txt = countText?.text.toString()
+            if(txt.compareTo("") == 0){
+                countText?.setText("0")
+            }
+            else {
+                var cnt = txt.toInt()
+
+                if(cnt <= 0){
+                    cnt = 0
+                }
+
+                else {
+                    cnt = cnt - 1
+                }
+                countText?.setText(cnt.toString())
+            }
         })
 
         //When the user clicks on the done button returns to survey manager
         doneBtn?.setOnClickListener({
 
             val intent = Intent()
-            intent.putExtra(ANSWER_STRING,countText?.text.toString().toInt())
+            intent.putExtra(ANSWER_STRING,countText?.text.toString())
             setResult(Activity.RESULT_OK,intent)
             finish()
         })
