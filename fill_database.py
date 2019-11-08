@@ -1,17 +1,22 @@
 import json
 import jsonpickle as jp
 import re
-from firebase import firebase
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import db
 
 class Question:
 
-    def __init__(self, q_num, q_text, answer_type, answers, skip_logic, survey_num):
-        self.questionNum = q_num
+    def __init__(self, q_num, q_text, answer_type, answers, skip_logic, survey_num, tot_q_num):
+        self.questionNum = tot_q_num
         self.questionText = q_text
         self.questionType = answer_type
         self.answer = answers
+        self.next_q = ""
+        self.next_sub_q = ""
         self.skip_logic = skip_logic
         self.survey_num = survey_num
+        self.questionId = str(survey_num) + ":" + str(q_num)
 
     def to_string(self):
         return str(self.q_num) + " " + self.q_text + " " + self.answer_type + " " + self.answers + " " + self.skip_logic + "\n"
@@ -20,8 +25,8 @@ class Question:
         #return "{\"qId\": \"{}\", \"questionText\" : \"{}\", \"questionType\": \"{}\", \
          #            \"answer\": \"{}\", \"skipLogic\": \"{}\", \"surveyNumber\": \"{}\"\}" \
           #           .format(str(self.questionNum), self.questionText, self.questionType, self.answer, self.skip_logic, str(self.survey_num))
-       return "{\n\"qId\": " + str(self.questionNum) + ",\n\"questionText\": \"" + self.questionText + "\",\n\"questionType\": \"" + self.questionType \
-           + "\",\n\"answer\": \"" + self.answer + "\", \"skipLogic\": \""+ self.skip_logic + "\",\n\"surveyNumber\": " + str(self.survey_num) + "\n},\n"
+       return "{\n\"qId\": " + str(self.questionId) + ",\n\"qNum\": " + str(self.questionNum) + ",\n\"questionText\": \"" + self.questionText + "\",\n\"questionType\": \"" + self.questionType \
+           + "\",\n\"answer\": \"" + self.answer + "\",\n\"skipLogic\": \""+ self.skip_logic + "\",\n\"surveyNumber\": " + str(self.survey_num) + "\",\n\"nextQuestion\": \""+ self.next_q + "\",\n\"nextSubQuestion\": \"" + str(self.next_sub_q) + "\"\n},\n"
 
 class Survey:
     questions = []
@@ -38,11 +43,29 @@ class Survey:
         for q in self.questions:
             print(q.to_string())
 
+def build_json_obj(q):
+    return ({'qNum': str(q.questionNum), "questionText": str(q.questionText), \
+         "questionType": str(q.questionType), "answer": str(q.answer), "skipLogic": str(q.skip_logic), \
+            "surveyNumber": str(q.survey_num), "nextQuestion": str(q.next_q), "nextSubQuestion": str(q.next_sub_q)})
 
-q_file = open('/Users/dansher/Documents/UMD/courses/fall 2019/Handheld Programming/BlockAssessmentSurvey/qlist.tsv')
+
+
+# Firebase credentials & SDK setup
+cred = credentials.Certificate("/Users/dansher/Documents/UMD/courses/fall_2019/Handheld_Programming/blockassessmentsurvey-firebase-adminsdk-nl97q-ef495105d2.json")
+firebase_admin.initialize_app(cred, {
+    'databaseURL': 'https://blockassessmentsurvey.firebaseio.com/'
+})
+
+# As an admin, the app has access to read and write all data, regradless of Security Rules
+ref = db.reference('Questions')
+print(ref.get())
+
+# Open questions file
+q_file = open('/Users/dansher/Documents/UMD/courses/fall_2019/Handheld_Programming/BlockAssessmentSurvey/qlist.tsv')
 flag = 0
 counter = 0
 survey_num = 0
+tot_q_num = 1
 surveys = []
 questions = []
     
@@ -69,23 +92,12 @@ for table in tables:
     for q in q_list:
         q_parts = re.split('\t', q, 3)
         if len(q_parts) > 3 and q_parts[0]:
-            questions.append((Question(q_num, q_parts[0], q_parts[1], q_parts[2], q_parts[3], survey_num)))
+            q = Question(q_num, q_parts[0], q_parts[1], q_parts[2], q_parts[3], survey_num, tot_q_num)
+            questions.append(q)
+            q_ref = ref.child(q.questionId).set(build_json_obj(q))
+
             q_num += 1
+            tot_q_num += 1
 
     # Add survey into list of surveys
     surveys.append(s)
-
-firebase = firebase.FirebaseApplication('https://blockassessmentsurvey.firebaseio.com/', None)
-s = questions[0].to_json()
-result = firebase.post('/questions', questions[0].qId, s)
-print(result)
-
-f = open("qs_test.txt","w") 
-#for s in surveys:
-for q in questions:
-        #x = q.isoformat()
-    
-    f.write(q.to_json())
-        #x = json.dumps(q, cls=MyEncoder)
-        #f.write(x)
-    #s.print_questions()
