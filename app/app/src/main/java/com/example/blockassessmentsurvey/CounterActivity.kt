@@ -6,10 +6,8 @@ import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-
-import kotlinx.android.synthetic.main.activity_counter.*
+//import kotlinx.android.synthetic.main.activity_counter.*
 
 class CounterActivity : AppCompatActivity() {
 
@@ -24,7 +22,7 @@ class CounterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_counter)
-        setSupportActionBar(toolbar)
+        //setSupportActionBar(toolbar)
 
         intent = getIntent()
 
