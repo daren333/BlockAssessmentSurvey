@@ -74,9 +74,15 @@ class CounterActivity : AppCompatActivity() {
         //When the user clicks on the done button returns to survey manager
         doneBtn?.setOnClickListener({
 
-            val intent = Intent()
-            intent.putExtra(ANSWER_STRING,countText?.text.toString())
-            setResult(Activity.RESULT_OK,intent)
+            val data = Intent()
+
+            // puts the counter in the intent
+            data.putExtra(QANSWER_STRING,countText?.text.toString())
+
+            //put the question id in the intent
+            data.putExtra(QID_STRING,intent.getStringExtra(QID_STRING))
+
+            setResult(Activity.RESULT_OK,data)
             finish()
         })
 
@@ -85,7 +91,8 @@ class CounterActivity : AppCompatActivity() {
     companion object {
 
         private val QUESTION_STRING = "questionstring"
-        private val ANSWER_STRING = "answer_string"
+        private val QANSWER_STRING = "qanswer"
+        private val QID_STRING = "qid"
     }
 
 }

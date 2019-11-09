@@ -29,9 +29,15 @@ class TextActivity : AppCompatActivity() {
         //returns the response from the Edit Text
         doneBtn?.setOnClickListener({
 
-            val intent = Intent()
-            intent.putExtra(ANSWER_STRING,response?.text)
-            setResult(Activity.RESULT_OK,intent)
+            val data = Intent()
+
+            //puts the answer in the intent
+            data.putExtra(QANSWER_STRING,response?.text)
+
+            //puts the question id in the string
+            data.putExtra(QID_STRING,intent.getStringExtra(QID_STRING))
+
+            setResult(Activity.RESULT_OK,data)
             finish()
 
         })
@@ -41,7 +47,8 @@ class TextActivity : AppCompatActivity() {
     companion object {
 
         private val QUESTION_STRING = "questionstring"
-        private val ANSWER_STRING = "answer_string"
+        private val QANSWER_STRING = "qanswer"
+        private val QID_STRING = "qid"
     }
 
 
