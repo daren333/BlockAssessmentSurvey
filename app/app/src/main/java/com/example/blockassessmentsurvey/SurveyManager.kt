@@ -50,16 +50,20 @@ class SurveyManager : AppCompatActivity() {
         } else if(survey == SURVEY2_STRING){
             firstQuestion = sQuestions[S2_Q1]
         }
+        sendQuestion(firstQuestion!!)
+    }
+
+    private fun sendQuestion(question: Question){
         // Send intent to correct question type along with question
         var intent: Intent? = null
-        logQuestion(firstQuestion!!)
-        if(firstQuestion?.qType == TYPE_CLICKER){
+        //logQuestion(question)
+        if(question.qType == TYPE_CLICKER){
             intent = Intent(this@SurveyManager, CounterActivity::class.java)
         }
-        val tosend = firstQuestion?.qText
-        Log.i(TAG, "Sending first question: $tosend")
-        intent?.putExtra(QUESTION_STRING, firstQuestion?.qText)
-        packQuestionAsExtra(firstQuestion!!, intent!!)
+        //val tosend = question.qText
+        packQuestionAsExtra(question, intent!!)
+        packQuestionAsExtra(question, intent)
+        Log.i(TAG, "Sending question")
         startActivityForResult(intent, 1)
     }
 
@@ -87,28 +91,24 @@ class SurveyManager : AppCompatActivity() {
         val answer = data.getStringExtra(QANSWER_STRING)
         // add the answered question to the results
         results[answeredQID] = answer
-        val nextQ: String? = null
+        var nextQ: String? = null
         //if the answered question has subquestions, check and see if conditions met to ask them
-        if(sQuestions[answeredQID]!!.nextSub != "none"){
+        if(sQuestions[answeredQID]!!.nextSub != ""){
             //only check for no or null or 0
-            //if(answer == sQuestions[answeredQ]!!.subAnswer)
-            //nextQ = next subquestions
+            if(answer == sQuestions[answeredQID]!!.skipLogic){
+                nextQ = sQuestions[answeredQID]!!.next
+            } else {
+                nextQ = sQuestions[answeredQID]!!.nextSub
+            }
         }
 
-        //if(nextQ == end of survey)
-        //find which survey the question belongs to, mark survey as finished
-        //post results to firebase for this user
+        if(nextQ == "done"){
+            // mark survey that question belongs to as done
+            //post results to firebase for this user
+        }
 
         //else get intent ready to ask next question
-        var intent: Intent? = null
-        if(sQuestions[nextQ]!!.qType == TYPE_CLICKER){
-            intent = Intent(this@SurveyManager, HelloActivity::class.java)
-        }
-        // else if type == multiple choice
-        val tosend = sQuestions[nextQ]!!.qText
-        Log.i(TAG, "Sending first question: $tosend")
-        intent!!.putExtra("text", sQuestions[nextQ]!!.qText)
-        startActivityForResult(intent, 1)
+        sendQuestion(sQuestions[nextQ]!!)
     }
 
     private fun initializeViews(){
