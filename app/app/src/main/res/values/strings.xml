@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Block Assessment Survey</string>
+    <string name="title_activity_survey_selector">SurveySelectorActivity</string>
 </resources>
