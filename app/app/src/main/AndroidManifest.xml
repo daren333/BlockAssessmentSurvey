@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TextActivity"></activity>
+        <activity android:name=".MultipleChoiceActivity"></activity>
+        <activity android:name=".TextActivity" />
         <activity android:name=".LikertActivity" />
         <activity
             android:name=".CounterActivity"
