@@ -58,19 +58,20 @@ class SurveyManager : AppCompatActivity() {
         var intent: Intent? = null
         //logQuestion(question)
         if(question.qType == TYPE_CLICKER){
-            intent = Intent(this@SurveyManager, CounterActivity::class.java)
+            intent = Intent(this@SurveyManager, ClickerActivity::class.java)
         }
         //val tosend = question.qText
-        packQuestionAsExtra(question, intent!!)
+        intent = packQuestionAsExtra(question, intent!!)
         packQuestionAsExtra(question, intent)
         Log.i(TAG, "Sending question")
         startActivityForResult(intent, 1)
     }
 
-    private fun packQuestionAsExtra(q: Question, intent: Intent){
+    private fun packQuestionAsExtra(q: Question, intent: Intent): Intent {
         intent.putExtra(QTEXT_STRING, q.qText)
         intent.putExtra(QID_STRING, q.qid)
         intent.putExtra(QANSWER_STRING, q.answer)
+        return intent
     }
 
     private fun logQuestion(q: Question){
@@ -100,15 +101,20 @@ class SurveyManager : AppCompatActivity() {
             } else {
                 nextQ = sQuestions[answeredQID]!!.nextSub
             }
+        } else {
+            nextQ = sQuestions[answeredQID]!!.next
         }
 
         if(nextQ == "done"){
             // mark survey that question belongs to as done
             //post results to firebase for this user
         }
-
+        val temp = sQuestions[nextQ]?.qText
+        Log.i(TAG, "Next question: $temp")
         //else get intent ready to ask next question
-        sendQuestion(sQuestions[nextQ]!!)
+        if(sQuestions[nextQ] != null){
+            sendQuestion(sQuestions[nextQ]!!)
+        }
     }
 
     private fun initializeViews(){
@@ -126,7 +132,7 @@ class SurveyManager : AppCompatActivity() {
                 for(post in dataSnapshot.children){
                     //get the question
                     val curr = post.toString()
-                    Log.i(TAG, "Got: $curr from database")
+                    //Log.i(TAG, "Got: $curr from database")
                     val question = post.getValue<Question>(Question::class.java)!!
                     //add it to the list
                     sQuestions[question.qid] = question
@@ -142,14 +148,12 @@ class SurveyManager : AppCompatActivity() {
     companion object {
         private val SURVEY1_STRING = "survey1"
         private val SURVEY2_STRING = "survey1"
-        private val QTEXT_STRING = "qtext"
         private val QID_STRING = "qid"
         private val QANSWER_STRING = "qanswer"
-        private val QNEXTQ_STRING = "qnextq"
         private val TYPE_CLICKER = "clicker (default 0)"
         private val S1_Q1 = "1:1"
         private val S2_Q1 = "2:1"
-        private val QUESTION_STRING = "questionstring"
+        private val QTEXT_STRING = "questionstring"
         private val TAG = "BAS-SurveyManager"
     }
 }
