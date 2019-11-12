@@ -12,7 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SurveyManager"></activity>
+        <activity android:name=".ClickerActivity"></activity>
+        <activity android:name=".MultipleChoiceActivity" />
+        <activity android:name=".TextActivity" />
+        <activity android:name=".LikertActivity" />
+        <activity
+            android:name=".CounterActivity"
+            android:label="@string/title_activity_counter"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SurveyManager" />
         <activity
             android:name=".GpsLocationActivity"
             android:label="@string/title_activity_get_gps_location"
