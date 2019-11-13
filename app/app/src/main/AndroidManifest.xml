@@ -16,6 +16,7 @@
         <activity android:name=".MultipleChoiceActivity" />
         <activity android:name=".TextActivity" />
         <activity android:name=".LikertActivity" />
+        <activity android:name=".SurveySelectorActivity" />
         <activity
             android:name=".CounterActivity"
             android:label="@string/title_activity_counter"

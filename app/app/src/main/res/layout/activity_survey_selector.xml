@@ -22,7 +22,7 @@
             <ImageView
                 android:id="@+id/blockFeaturesView"
                 android:layout_width="100dp"
-                android:layout_height="200dp"
+                android:layout_height="150dp"
                 android:clickable="true"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/street_lamp"
@@ -31,7 +31,7 @@
             <ImageView
                 android:id="@+id/storesView"
                 android:layout_width="100dp"
-                android:layout_height="200dp"
+                android:layout_height="150dp"
                 android:clickable="true"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/shop"
@@ -40,7 +40,7 @@
             <ImageView
                 android:id="@+id/industryView"
                 android:layout_width="100dp"
-                android:layout_height="200dp"
+                android:layout_height="150dp"
                 android:clickable="true"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/factory"
@@ -52,7 +52,7 @@
             <ImageView
                 android:id="@+id/physicalDisorderView"
                 android:layout_width="100dp"
-                android:layout_height="200dp"
+                android:layout_height="150dp"
                 android:clickable="true"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/road_barrier"
@@ -61,7 +61,7 @@
             <ImageView
                 android:id="@+id/housingView"
                 android:layout_width="100dp"
-                android:layout_height="200dp"
+                android:layout_height="150dp"
                 android:clickable="true"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/house"
@@ -70,7 +70,7 @@
             <ImageView
                 android:id="@+id/servicesView"
                 android:layout_width="100dp"
-                android:layout_height="200dp"
+                android:layout_height="150dp"
                 android:clickable="true"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/city_hall"
@@ -83,7 +83,7 @@
             <ImageView
                 android:id="@+id/publicTransitView"
                 android:layout_width="100dp"
-                android:layout_height="200dp"
+                android:layout_height="150dp"
                 android:clickable="true"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/bus"
@@ -92,7 +92,7 @@
             <ImageView
                 android:id="@+id/healthView"
                 android:layout_width="100dp"
-                android:layout_height="200dp"
+                android:layout_height="150dp"
                 android:clickable="true"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/heart"

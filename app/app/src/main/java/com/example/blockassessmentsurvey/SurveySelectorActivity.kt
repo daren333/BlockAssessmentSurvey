@@ -56,7 +56,7 @@ class SurveySelectorActivity : AppCompatActivity() {
         }
 
         servicesButton!!.setOnClickListener {
-            val intent = Intent(this@SurveySelectorActivity, HelloActivity::class.java)
+            val intent = Intent(this@SurveySelectorActivity, SurveyManager::class.java)
                     .putExtra("surveyType", "Services Survey")
             startActivity(intent)
         }
