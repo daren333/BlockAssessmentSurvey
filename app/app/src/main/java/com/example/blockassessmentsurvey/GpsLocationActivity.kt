@@ -74,7 +74,8 @@ class GpsLocationActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, "Please enter valid address to continue.", Toast.LENGTH_LONG).show()
         }
         else {
-            Toast.makeText(applicationContext, "Thanks!", Toast.LENGTH_LONG).show()
+            val intent = Intent(this@GpsLocationActivity, SurveyManager::class.java)
+            startActivity(intent)
         }
     }
 
