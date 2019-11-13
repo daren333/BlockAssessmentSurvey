@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context=".SurveySelectorActivity">
+
+    android:id="@+id/frame"
+    android:padding="@dimen/activity_margin">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="10dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/blockFeaturesView"
+                android:layout_width="100dp"
+                android:layout_height="200dp"
+                android:clickable="true"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/street_lamp"
+                android:tint="@android:color/black" />
+
+            <ImageView
+                android:id="@+id/storesView"
+                android:layout_width="100dp"
+                android:layout_height="200dp"
+                android:clickable="true"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/shop"
+                android:tint="@android:color/black" />
+
+            <ImageView
+                android:id="@+id/industryView"
+                android:layout_width="100dp"
+                android:layout_height="200dp"
+                android:clickable="true"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/factory"
+                android:tint="@android:color/black" />
+        </TableRow>
+
+        <TableRow>
+
+            <ImageView
+                android:id="@+id/physicalDisorderView"
+                android:layout_width="100dp"
+                android:layout_height="200dp"
+                android:clickable="true"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/road_barrier"
+                android:tint="@android:color/black" />
+
+            <ImageView
+                android:id="@+id/housingView"
+                android:layout_width="100dp"
+                android:layout_height="200dp"
+                android:clickable="true"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/house"
+                android:tint="@android:color/black" />
+
+            <ImageView
+                android:id="@+id/servicesView"
+                android:layout_width="100dp"
+                android:layout_height="200dp"
+                android:clickable="true"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/city_hall"
+                android:tint="@android:color/black" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <ImageView
+                android:id="@+id/publicTransitView"
+                android:layout_width="100dp"
+                android:layout_height="200dp"
+                android:clickable="true"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/bus"
+                android:tint="@android:color/black" />
+
+            <ImageView
+                android:id="@+id/healthView"
+                android:layout_width="100dp"
+                android:layout_height="200dp"
+                android:clickable="true"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/heart"
+                android:tint="@android:color/black" />
+
+        </TableRow>
+
+    </TableLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

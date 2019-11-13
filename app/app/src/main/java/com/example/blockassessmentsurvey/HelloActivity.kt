@@ -1,7 +1,10 @@
 package com.example.blockassessmentsurvey
 
 import android.os.Bundle
+<<<<<<< HEAD
 import android.widget.Button
+=======
+>>>>>>> select1
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
@@ -14,6 +17,7 @@ class HelloActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hello)
 
+<<<<<<< HEAD
         text = findViewById(R.id.textView)
         exitBtn = findViewById(R.id.exit_button)
 
@@ -27,5 +31,12 @@ class HelloActivity : AppCompatActivity() {
         exitBtn.setOnClickListener {
             finish()
         }
+=======
+        val survey = intent.getStringExtra("surveyType")
+        val tv : TextView = findViewById(R.id.textView1)
+        tv.text = survey
+
+
+>>>>>>> select1
     }
 }

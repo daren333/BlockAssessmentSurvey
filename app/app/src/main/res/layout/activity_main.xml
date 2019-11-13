@@ -18,5 +18,11 @@
         android:layout_height="wrap_content"
         android:text="Login"/>
 
+    <Button
+        android:id="@+id/skipToSurvey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Skip to Surveys"/>
+
 
 </LinearLayout>
