@@ -5,14 +5,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.*
 
 class SurveyManager : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private lateinit var databaseSurveys: DatabaseReference
-    private lateinit var survey1Btn: Button
-    private lateinit var survey2Btn: Button
+    //private lateinit var survey1Btn: Button
+    //private lateinit var survey2Btn: Button
     private lateinit var sQuestions: MutableMap<String, Question>
     private lateinit var results: MutableMap<String, String>
 
@@ -29,15 +30,40 @@ class SurveyManager : AppCompatActivity() {
         sQuestions = HashMap()
         results = HashMap()
 
-        initializeViews()
+        val blockButton: ImageView = findViewById(R.id.blockFeaturesView)
+        val storesButton: ImageView = findViewById(R.id.storesView)
+        val industryButton: ImageView = findViewById(R.id.industryView)
+        val physicalDisorderButton: ImageView = findViewById(R.id.physicalDisorderView)
+        val housingButton: ImageView = findViewById(R.id.housingView)
+        val servicesButton: ImageView = findViewById(R.id.servicesView)
+        val publicTransitButton: ImageView = findViewById(R.id.publicTransitView)
+        val healthButton: ImageView = findViewById(R.id.healthView)
 
-        //depending on which button is pushed, query the database to get relevant questions
+        blockButton!!.setOnClickListener { startSurvey(SURVEY1_STRING) }
+
+        storesButton!!.setOnClickListener { startSurvey(SURVEY1_STRING) }
+
+        industryButton!!.setOnClickListener { startSurvey(SURVEY1_STRING) }
+
+        physicalDisorderButton!!.setOnClickListener { startSurvey(SURVEY1_STRING) }
+
+        housingButton!!.setOnClickListener { startSurvey(SURVEY1_STRING) }
+
+        servicesButton!!.setOnClickListener { startSurvey(SURVEY2_STRING) }
+
+        publicTransitButton!!.setOnClickListener { startSurvey(SURVEY1_STRING) }
+
+        healthButton!!.setOnClickListener { startSurvey(SURVEY1_STRING) }
+
+        //initializeViews()
+
+        /*depending on which button is pushed, query the database to get relevant questions
         survey1Btn.setOnClickListener {
             startSurvey(SURVEY1_STRING)
         }
         survey2Btn.setOnClickListener {
             startSurvey(SURVEY2_STRING)
-        }
+        }*/
     }
 
     private fun startSurvey(survey: String){
@@ -118,8 +144,8 @@ class SurveyManager : AppCompatActivity() {
     }
 
     private fun initializeViews(){
-        survey1Btn = findViewById(R.id.survey1_button)
-        survey2Btn = findViewById(R.id.survey2_button)
+        //survey1Btn = findViewById(R.id.survey1_button)
+        //survey2Btn = findViewById(R.id.survey2_button)
     }
 
     override fun onStart() {
