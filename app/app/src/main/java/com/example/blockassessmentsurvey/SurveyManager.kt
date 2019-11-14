@@ -9,23 +9,27 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.*
 
 class SurveyManager : AppCompatActivity() {
+    private lateinit var userID: String
     private lateinit var database: DatabaseReference
-    private lateinit var databaseSurveys: DatabaseReference
+    private lateinit var databaseQuestions: DatabaseReference
+    private lateinit var databaseUsers: DatabaseReference
     private lateinit var survey1Btn: Button
     private lateinit var survey2Btn: Button
     private lateinit var sQuestions: MutableMap<String, Question>
     private lateinit var results: MutableMap<String, String>
 
-    private var currQ: Int = 0
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_survey_manager)
 
+        //get the current users ID
+        userID = intent.getStringExtra("UserID")
+
         //get reference to database
         database = FirebaseDatabase.getInstance().reference
-        databaseSurveys = FirebaseDatabase.getInstance().getReference("questions")
+        databaseQuestions = FirebaseDatabase.getInstance().getReference("questions")
+        databaseUsers = FirebaseDatabase.getInstance().getReference("users")
+
         sQuestions = HashMap()
         results = HashMap()
 
@@ -42,8 +46,6 @@ class SurveyManager : AppCompatActivity() {
 
     private fun startSurvey(survey: String){
         //depending on what survey they chose, get the first question to ask
-        //val temp = sQuestions["1:1"]?.qText
-        //Log.i(TAG, "First question for survey 1: $temp")
         var firstQuestion: Question? = null
         if(survey == SURVEY1_STRING){
             firstQuestion = sQuestions[S1_Q1]
@@ -60,9 +62,8 @@ class SurveyManager : AppCompatActivity() {
         if(question.qType == TYPE_CLICKER){
             intent = Intent(this@SurveyManager, ClickerActivity::class.java)
         }
-        //val tosend = question.qText
+        // pack intent with necessary data in question
         intent = packQuestionAsExtra(question, intent!!)
-        packQuestionAsExtra(question, intent)
         Log.i(TAG, "Sending question")
         startActivityForResult(intent, 1)
     }
@@ -74,6 +75,7 @@ class SurveyManager : AppCompatActivity() {
         return intent
     }
 
+    // for debugging
     private fun logQuestion(q: Question){
         val qid = q.qid
         val qtype = q.qType
@@ -81,10 +83,13 @@ class SurveyManager : AppCompatActivity() {
         Log.i(TAG, "qtype = $qtype")
     }
 
+    // runs when question activity completes
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         Log.i(TAG, "Got into result")
-        if(resultCode == Activity.RESULT_OK && requestCode == 1){
+        if(resultCode != Activity.RESULT_OK){
+            return
+        } else if(resultCode == Activity.RESULT_OK && requestCode == 1){
             Log.i(TAG, "Got into activity result ok")
         }
         // get answer of question and ask next question
@@ -108,6 +113,8 @@ class SurveyManager : AppCompatActivity() {
         if(nextQ == "done"){
             // mark survey that question belongs to as done
             //post results to firebase for this user
+            val childUpdates: HashMap<String, Any> = HashMap(results)
+            databaseUsers.child(userID).updateChildren(childUpdates)
         }
         val temp = sQuestions[nextQ]?.qText
         Log.i(TAG, "Next question: $temp")
@@ -124,7 +131,7 @@ class SurveyManager : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        databaseSurveys.addListenerForSingleValueEvent(object : ValueEventListener {
+        databaseQuestions.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 sQuestions.clear()
                 Log.i(TAG, "Starting get questions")
@@ -147,7 +154,7 @@ class SurveyManager : AppCompatActivity() {
 
     companion object {
         private val SURVEY1_STRING = "survey1"
-        private val SURVEY2_STRING = "survey1"
+        private val SURVEY2_STRING = "survey2"
         private val QID_STRING = "qid"
         private val QANSWER_STRING = "qanswer"
         private val TYPE_CLICKER = "clicker (default 0)"
