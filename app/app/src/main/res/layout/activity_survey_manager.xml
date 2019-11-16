@@ -1,106 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".SurveySelectorActivity">
+    tools:context=".SurveySelectorActivity"><![CDATA[
 
     android:id="@+id/frame"
     android:padding="@dimen/activity_margin">
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="10dp">
+    ]]>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/servicesView"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:clickable="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/city_hall"
+        android:tint="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/healthView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/blockFeaturesView"
-                android:layout_width="100dp"
-                android:layout_height="150dp"
-                android:clickable="true"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/street_lamp"
-                android:tint="@android:color/black" />
+    <ImageView
+        android:id="@+id/healthView"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:clickable="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/heart"
+        android:tint="@android:color/black"
+        app:layout_constraintEnd_toStartOf="@+id/publicTransitView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/servicesView"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/storesView"
-                android:layout_width="100dp"
-                android:layout_height="150dp"
-                android:clickable="true"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/shop"
-                android:tint="@android:color/black" />
+    <ImageView
+        android:id="@+id/publicTransitView"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:clickable="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/bus"
+        android:tint="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/healthView"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/industryView"
-                android:layout_width="100dp"
-                android:layout_height="150dp"
-                android:clickable="true"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/factory"
-                android:tint="@android:color/black" />
-        </TableRow>
+    <ImageView
+        android:id="@+id/blockFeaturesView"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:clickable="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/street_lamp"
+        android:tint="@android:color/black"
+        app:layout_constraintEnd_toStartOf="@+id/housingView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/servicesText" />
 
-        <TableRow>
+    <ImageView
+        android:id="@+id/housingView"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:clickable="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/house"
+        android:tint="@android:color/black"
+        app:layout_constraintEnd_toStartOf="@+id/industryView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/blockFeaturesView"
+        app:layout_constraintTop_toBottomOf="@+id/healthText" />
 
-            <ImageView
-                android:id="@+id/physicalDisorderView"
-                android:layout_width="100dp"
-                android:layout_height="150dp"
-                android:clickable="true"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/road_barrier"
-                android:tint="@android:color/black" />
+    <ImageView
+        android:id="@+id/industryView"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:clickable="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/factory"
+        android:tint="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/housingView"
+        app:layout_constraintTop_toBottomOf="@+id/publicTransitText" />
 
-            <ImageView
-                android:id="@+id/housingView"
-                android:layout_width="100dp"
-                android:layout_height="150dp"
-                android:clickable="true"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/house"
-                android:tint="@android:color/black" />
+    <ImageView
+        android:id="@+id/physicalDisorderView"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:clickable="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/road_barrier"
+        android:tint="@android:color/black"
+        app:layout_constraintEnd_toStartOf="@+id/storesView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/housingText" />
 
-            <ImageView
-                android:id="@+id/servicesView"
-                android:layout_width="100dp"
-                android:layout_height="150dp"
-                android:clickable="true"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/city_hall"
-                android:tint="@android:color/black" />
+    <ImageView
+        android:id="@+id/storesView"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:clickable="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/shop"
+        android:tint="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/physicalDisorderView"
+        app:layout_constraintTop_toBottomOf="@+id/housingText" />
 
-        </TableRow>
+    <TextView
+        android:id="@+id/servicesText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Public Services"
+        app:layout_constraintEnd_toEndOf="@+id/servicesView"
+        app:layout_constraintEnd_toStartOf="@+id/healthView"
+        app:layout_constraintStart_toStartOf="@+id/servicesView"
+        app:layout_constraintTop_toBottomOf="@+id/servicesView" />
 
-        <TableRow>
+    <TextView
+        android:id="@+id/healthText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Health"
+        app:layout_constraintEnd_toEndOf="@+id/healthView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/healthView"
+        app:layout_constraintTop_toBottomOf="@+id/healthView" />
 
-            <ImageView
-                android:id="@+id/publicTransitView"
-                android:layout_width="100dp"
-                android:layout_height="150dp"
-                android:clickable="true"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/bus"
-                android:tint="@android:color/black" />
+    <TextView
+        android:id="@+id/publicTransitText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="7dp"
+        android:text="Public Transit"
+        app:layout_constraintEnd_toEndOf="@+id/publicTransitView"
+        app:layout_constraintStart_toStartOf="@+id/publicTransitView"
+        app:layout_constraintTop_toBottomOf="@+id/publicTransitView" />
 
-            <ImageView
-                android:id="@+id/healthView"
-                android:layout_width="100dp"
-                android:layout_height="150dp"
-                android:clickable="true"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/heart"
-                android:tint="@android:color/black" />
+    <TextView
+        android:id="@+id/blockText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Block Features"
+        app:layout_constraintEnd_toEndOf="@+id/blockFeaturesView"
+        app:layout_constraintStart_toStartOf="@+id/blockFeaturesView"
+        app:layout_constraintTop_toBottomOf="@+id/blockFeaturesView" />
 
-        </TableRow>
+    <TextView
+        android:id="@+id/housingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Housing"
+        app:layout_constraintEnd_toEndOf="@+id/housingView"
+        app:layout_constraintStart_toStartOf="@+id/housingView"
+        app:layout_constraintTop_toBottomOf="@+id/housingView" />
 
-    </TableLayout>
+    <TextView
+        android:id="@+id/industryText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Industry"
+        app:layout_constraintEnd_toEndOf="@+id/industryView"
+        app:layout_constraintStart_toStartOf="@+id/industryView"
+        app:layout_constraintTop_toBottomOf="@+id/industryView" />
+
+    <TextView
+        android:id="@+id/disorderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Physical Disorder"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/physicalDisorderView"
+        app:layout_constraintStart_toStartOf="@+id/physicalDisorderView"
+        app:layout_constraintTop_toBottomOf="@+id/physicalDisorderView" />
+
+    <TextView
+        android:id="@+id/storesText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stores"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/storesView"
+        app:layout_constraintStart_toStartOf="@+id/storesView"
+        app:layout_constraintTop_toBottomOf="@+id/storesView" />
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
