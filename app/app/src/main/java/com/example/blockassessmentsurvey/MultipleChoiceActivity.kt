@@ -17,9 +17,9 @@ class MultipleChoiceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_multiple_choice)
 
-        val questions = "Like,Ok,Dislike"
+//        val questions = "Like,Ok,Dislike"
 
-//        val questions = intent.getStringExtra(QUESTION_STRING)
+        val questions = intent.getStringExtra(QUESTION_STRING)
 
         val radioContainer = findViewById<RadioGroup>(R.id.radioGroup)
         radioContainer.setOrientation(LinearLayout.HORIZONTAL)
