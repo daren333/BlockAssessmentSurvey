@@ -1,6 +1,7 @@
 package com.example.blockassessmentsurvey
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
@@ -65,11 +66,12 @@ class GpsLocationActivity : AppCompatActivity() {
         val addressList = Geocoder(this).getFromLocationName(addressString, 3)
         if(addressList.isEmpty()){
             Toast.makeText(applicationContext, "Please enter valid address to continue.", Toast.LENGTH_LONG).show()
-        }
-        else {
+        } else {
             //Toast.makeText(applicationContext, "Thanks!", Toast.LENGTH_LONG).show()
-            val intent = Intent(this@GpsLocationActivity, SurveyManager::class.java)
-            intent.putExtra(ADDR_STRING, addressList.toString())
+            val data = Intent()
+            data.putExtra(ADDR_STRING, addressString)
+            setResult(Activity.RESULT_OK, data)
+            finish()
         }
     }
 
