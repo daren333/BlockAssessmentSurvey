@@ -1,31 +1,24 @@
 package com.example.blockassessmentsurvey
 
 import android.Manifest
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
-import android.net.Uri
 import android.os.Bundle
-import android.telephony.TelephonyManager
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 
-import kotlinx.android.synthetic.main.activity_get_gps_location.*
-
 class GpsLocationActivity : AppCompatActivity() {
 
     companion object {
-        const val TAG = "Location"
+        private const val TAG = "Location"
+        private const val ADDR_STRING = "address"
     }
 
     // UI elements
@@ -74,7 +67,9 @@ class GpsLocationActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, "Please enter valid address to continue.", Toast.LENGTH_LONG).show()
         }
         else {
-            Toast.makeText(applicationContext, "Thanks!", Toast.LENGTH_LONG).show()
+            //Toast.makeText(applicationContext, "Thanks!", Toast.LENGTH_LONG).show()
+            val intent = Intent(this@GpsLocationActivity, SurveyManager::class.java)
+            intent.putExtra(ADDR_STRING, addressList.toString())
         }
     }
 

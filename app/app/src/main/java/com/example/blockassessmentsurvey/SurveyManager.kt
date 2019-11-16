@@ -47,7 +47,8 @@ class SurveyManager : AppCompatActivity() {
     }
 
     private fun startSurvey(survey: String){
-        //start by asking about GPS info and weather
+        //start by asking about GPS info and weather and get the time
+
 
         //depending on what survey they chose, get the first question to ask
         var firstQuestion: Question? = null
@@ -162,14 +163,15 @@ class SurveyManager : AppCompatActivity() {
     }
 
     companion object {
-        private val SURVEY1_STRING = "survey1"
-        private val SURVEY2_STRING = "survey2"
-        private val QID_STRING = "qid"
-        private val QANSWER_STRING = "qanswer"
-        private val TYPE_CLICKER = "clicker (default 0)"
-        private val S1_Q1 = "1:1"
-        private val S2_Q1 = "2:1"
-        private val QTEXT_STRING = "questionstring"
-        private val TAG = "BAS-SurveyManager"
+        private const val SURVEY1_STRING = "survey1"
+        private const val SURVEY2_STRING = "survey2"
+        private const val QID_STRING = "qid"
+        private const val QANSWER_STRING = "qanswer"
+        private const val TYPE_CLICKER = "clicker (default 0)"
+        private const val S1_Q1 = "1:1"
+        private const val S2_Q1 = "2:1"
+        private const val QTEXT_STRING = "questionstring"
+        private const val ADDR_STRING = "address"
+        private const val TAG = "BAS-SurveyManager"
     }
 }
