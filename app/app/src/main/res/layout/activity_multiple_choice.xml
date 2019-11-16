@@ -6,8 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".MultipleChoiceActivity">
 
+    <TextView
+        android:id="@+id/QuestionText"
+        style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/counter"
+        android:layout_centerHorizontal="true"
+        android:text="Hello world?"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
     <RadioGroup
         android:id = "@+id/radioGroup"
+        android:layout_below="@id/QuestionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -18,11 +30,11 @@
     <ImageButton
         android:id="@+id/done"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/radioGroup"
+        android:layout_height="77dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="654dp"
         app:srcCompat="@drawable/ic_done_black_24dp" />
 
 </RelativeLayout>
