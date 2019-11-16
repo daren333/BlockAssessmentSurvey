@@ -10,23 +10,29 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.*
 
 class SurveyManager : AppCompatActivity() {
+    private lateinit var userID: String
     private lateinit var database: DatabaseReference
-    private lateinit var databaseSurveys: DatabaseReference
-    //private lateinit var survey1Btn: Button
-    //private lateinit var survey2Btn: Button
+    private lateinit var databaseQuestions: DatabaseReference
+    private lateinit var databaseUsers: DatabaseReference
+    private lateinit var survey1Btn: Button
+    private lateinit var survey2Btn: Button
     private lateinit var sQuestions: MutableMap<String, Question>
     private lateinit var results: MutableMap<String, String>
-
-    private var currQ: Int = 0
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_survey_manager)
 
+        //get the current users ID
+        userID = intent.getStringExtra("UserID")
+        Log.i(TAG, "Got userID: $userID")
+
+
         //get reference to database
         database = FirebaseDatabase.getInstance().reference
-        databaseSurveys = FirebaseDatabase.getInstance().getReference("questions")
+        databaseQuestions = FirebaseDatabase.getInstance().getReference("questions")
+        databaseUsers = FirebaseDatabase.getInstance().getReference("users")
+
         sQuestions = HashMap()
         results = HashMap()
 
@@ -67,9 +73,10 @@ class SurveyManager : AppCompatActivity() {
     }
 
     private fun startSurvey(survey: String){
+        //start by asking about GPS info and weather and get the time
+
+
         //depending on what survey they chose, get the first question to ask
-        //val temp = sQuestions["1:1"]?.qText
-        //Log.i(TAG, "First question for survey 1: $temp")
         var firstQuestion: Question? = null
         if(survey == SURVEY1_STRING){
             firstQuestion = sQuestions[S1_Q1]
@@ -86,9 +93,8 @@ class SurveyManager : AppCompatActivity() {
         if(question.qType == TYPE_CLICKER){
             intent = Intent(this@SurveyManager, ClickerActivity::class.java)
         }
-        //val tosend = question.qText
+        // pack intent with necessary data in question
         intent = packQuestionAsExtra(question, intent!!)
-        packQuestionAsExtra(question, intent)
         Log.i(TAG, "Sending question")
         startActivityForResult(intent, 1)
     }
@@ -100,6 +106,7 @@ class SurveyManager : AppCompatActivity() {
         return intent
     }
 
+    // for debugging
     private fun logQuestion(q: Question){
         val qid = q.qid
         val qtype = q.qType
@@ -107,10 +114,13 @@ class SurveyManager : AppCompatActivity() {
         Log.i(TAG, "qtype = $qtype")
     }
 
+    // runs when question activity completes
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         Log.i(TAG, "Got into result")
-        if(resultCode == Activity.RESULT_OK && requestCode == 1){
+        if(resultCode != Activity.RESULT_OK){
+            return
+        } else if(resultCode == Activity.RESULT_OK && requestCode == 1){
             Log.i(TAG, "Got into activity result ok")
         }
         // get answer of question and ask next question
@@ -118,7 +128,7 @@ class SurveyManager : AppCompatActivity() {
         val answer = data.getStringExtra(QANSWER_STRING)
         // add the answered question to the results
         results[answeredQID] = answer
-        var nextQ: String? = null
+        var nextQ: String?
         //if the answered question has subquestions, check and see if conditions met to ask them
         if(sQuestions[answeredQID]!!.nextSub != ""){
             //only check for no or null or 0
@@ -131,15 +141,22 @@ class SurveyManager : AppCompatActivity() {
             nextQ = sQuestions[answeredQID]!!.next
         }
 
+        Log.i(TAG, "Next question is : $nextQ")
         if(nextQ == "done"){
             // mark survey that question belongs to as done
             //post results to firebase for this user
-        }
-        val temp = sQuestions[nextQ]?.qText
-        Log.i(TAG, "Next question: $temp")
-        //else get intent ready to ask next question
-        if(sQuestions[nextQ] != null){
-            sendQuestion(sQuestions[nextQ]!!)
+            val childUpdates: HashMap<String, Any> = HashMap(results)
+            Log.i(TAG, "Putting answers into $userID")
+            val temp = childUpdates.toString()
+            Log.i(TAG, "Answers: $temp")
+            databaseUsers.child(userID).updateChildren(childUpdates)
+        } else { // ask next question
+            val temp = sQuestions[nextQ]?.qText
+            Log.i(TAG, "Next question: $temp")
+
+            if(sQuestions[nextQ] != null) {
+                sendQuestion(sQuestions[nextQ]!!)
+            }
         }
     }
 
@@ -150,7 +167,7 @@ class SurveyManager : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        databaseSurveys.addListenerForSingleValueEvent(object : ValueEventListener {
+        databaseQuestions.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 sQuestions.clear()
                 Log.i(TAG, "Starting get questions")
@@ -172,14 +189,15 @@ class SurveyManager : AppCompatActivity() {
     }
 
     companion object {
-        private val SURVEY1_STRING = "survey1"
-        private val SURVEY2_STRING = "survey1"
-        private val QID_STRING = "qid"
-        private val QANSWER_STRING = "qanswer"
-        private val TYPE_CLICKER = "clicker (default 0)"
-        private val S1_Q1 = "1:1"
-        private val S2_Q1 = "2:1"
-        private val QTEXT_STRING = "questionstring"
-        private val TAG = "BAS-SurveyManager"
+        private const val SURVEY1_STRING = "survey1"
+        private const val SURVEY2_STRING = "survey2"
+        private const val QID_STRING = "qid"
+        private const val QANSWER_STRING = "qanswer"
+        private const val TYPE_CLICKER = "clicker (default 0)"
+        private const val S1_Q1 = "1:1"
+        private const val S2_Q1 = "2:1"
+        private const val QTEXT_STRING = "questionstring"
+        private const val ADDR_STRING = "address"
+        private const val TAG = "BAS-SurveyManager"
     }
 }
