@@ -27,5 +27,10 @@ class HelloActivity : AppCompatActivity() {
         exitBtn.setOnClickListener {
             finish()
         }
+
+        val survey = intent.getStringExtra("surveyType")
+        //val tv : TextView = findViewById(R.id.textView1)
+        //tv.text = survey
+
     }
 }
