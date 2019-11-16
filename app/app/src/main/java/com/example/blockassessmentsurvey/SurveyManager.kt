@@ -24,6 +24,8 @@ class SurveyManager : AppCompatActivity() {
 
         //get the current users ID
         userID = intent.getStringExtra("UserID")
+        Log.i(TAG, "Got userID: $userID")
+
 
         //get reference to database
         database = FirebaseDatabase.getInstance().reference
@@ -45,6 +47,8 @@ class SurveyManager : AppCompatActivity() {
     }
 
     private fun startSurvey(survey: String){
+        //start by asking about GPS info and weather
+
         //depending on what survey they chose, get the first question to ask
         var firstQuestion: Question? = null
         if(survey == SURVEY1_STRING){
@@ -97,7 +101,7 @@ class SurveyManager : AppCompatActivity() {
         val answer = data.getStringExtra(QANSWER_STRING)
         // add the answered question to the results
         results[answeredQID] = answer
-        var nextQ: String? = null
+        var nextQ: String?
         //if the answered question has subquestions, check and see if conditions met to ask them
         if(sQuestions[answeredQID]!!.nextSub != ""){
             //only check for no or null or 0
@@ -110,17 +114,22 @@ class SurveyManager : AppCompatActivity() {
             nextQ = sQuestions[answeredQID]!!.next
         }
 
+        Log.i(TAG, "Next question is : $nextQ")
         if(nextQ == "done"){
             // mark survey that question belongs to as done
             //post results to firebase for this user
             val childUpdates: HashMap<String, Any> = HashMap(results)
+            Log.i(TAG, "Putting answers into $userID")
+            val temp = childUpdates.toString()
+            Log.i(TAG, "Answers: $temp")
             databaseUsers.child(userID).updateChildren(childUpdates)
-        }
-        val temp = sQuestions[nextQ]?.qText
-        Log.i(TAG, "Next question: $temp")
-        //else get intent ready to ask next question
-        if(sQuestions[nextQ] != null){
-            sendQuestion(sQuestions[nextQ]!!)
+        } else { // ask next question
+            val temp = sQuestions[nextQ]?.qText
+            Log.i(TAG, "Next question: $temp")
+
+            if(sQuestions[nextQ] != null) {
+                sendQuestion(sQuestions[nextQ]!!)
+            }
         }
     }
 

@@ -59,11 +59,11 @@ class LoginActivity : AppCompatActivity() {
         mAuth!!.signInWithEmailAndPassword(email_string, pass_string)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    val curr_uid = mAuth!!.currentUser!!.uid
+                    val currUid = mAuth!!.currentUser!!.uid
                     //val curr_uid = mDatabaseReference!!.push().key
-                    Log.i("Lab-Fire", "Sending $curr_uid")
+                    Log.i("Lab-Fire", "Sending $currUid")
                     val intent = Intent(this@LoginActivity, SurveyManager::class.java)
-                    intent.putExtra("UserID", curr_uid)
+                    intent.putExtra("UserID", currUid)
                     startActivity(intent)
                 } else {
                     Toast.makeText(
