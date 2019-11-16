@@ -5,12 +5,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity.CENTER
 import android.view.View
 import android.widget.*
+import androidx.core.view.updatePadding
 
 class MultipleChoiceActivity : AppCompatActivity() {
 
-//    private var questionText: TextView? = null
+    private var questionText: TextView? = null
     private var doneBtn: ImageButton? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +21,13 @@ class MultipleChoiceActivity : AppCompatActivity() {
 
 //        val questions = "Like,Ok,Dislike"
 
-        val questions = intent.getStringExtra(QUESTION_STRING)
+        val toAsk = intent.getStringExtra(QUESTION_STRING)
+
+        questionText = findViewById(R.id.QuestionText)
+
+        questionText?.text = toAsk
+
+        val questions = intent.getStringExtra(QANSWER_STRING)
 
         val radioContainer = findViewById<RadioGroup>(R.id.radioGroup)
         radioContainer.setOrientation(LinearLayout.HORIZONTAL)
@@ -28,6 +36,10 @@ class MultipleChoiceActivity : AppCompatActivity() {
 
             val toAdd = RadioButton(this)
             toAdd.id = View.generateViewId()
+            toAdd.gravity = CENTER
+            toAdd.background = null
+//            toAdd.updatePadding(20)
+
 
             toAdd.setText(option)
 
@@ -41,7 +53,6 @@ class MultipleChoiceActivity : AppCompatActivity() {
         doneBtn = findViewById(R.id.done)
 
         doneBtn?.setOnClickListener({
-
 
 
             val data = Intent()
@@ -78,5 +89,6 @@ class MultipleChoiceActivity : AppCompatActivity() {
         private val QUESTION_STRING = "questionstring"
         private val QANSWER_STRING = "qanswer"
         private val QID_STRING = "qid"
+
     }
 }
