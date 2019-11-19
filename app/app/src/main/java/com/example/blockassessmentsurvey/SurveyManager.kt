@@ -11,9 +11,9 @@ import java.time.LocalDateTime
 
 class SurveyManager : AppCompatActivity() {
     private lateinit var userID: String
-    private lateinit var database: DatabaseReference
+    private lateinit var databaseResults: DatabaseReference
     private lateinit var databaseQuestions: DatabaseReference
-    private lateinit var databaseUsers: DatabaseReference
+    private lateinit var databaseUser: DatabaseReference
 
     private lateinit var blockButton: ImageView
     private lateinit var storesButton: ImageView
@@ -27,6 +27,8 @@ class SurveyManager : AppCompatActivity() {
     private lateinit var sQuestions: MutableMap<String, Question>
     private lateinit var firstQuestion: String
     private lateinit var results: MutableMap<String, String>
+    private lateinit var surveyStatus: MutableMap<String, Any>
+    private var restarted: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,12 +40,13 @@ class SurveyManager : AppCompatActivity() {
 
 
         //get reference to database
-        database = FirebaseDatabase.getInstance().reference
         databaseQuestions = FirebaseDatabase.getInstance().getReference("questions")
-        databaseUsers = FirebaseDatabase.getInstance().getReference("users")
+        databaseUser = FirebaseDatabase.getInstance().getReference("users").child(userID)
+        databaseResults = FirebaseDatabase.getInstance().getReference("results")
 
         sQuestions = HashMap()
         results = HashMap()
+        surveyStatus = HashMap()
 
         initializeViews()
 
@@ -69,24 +72,52 @@ class SurveyManager : AppCompatActivity() {
         //start by asking about GPS info and weather and get the time
         firstQuestion = firstQ
         results = HashMap() // clear the results from previous survey
-        results["startTimestamp"] = LocalDateTime.now().toString() // get day and time
-        val intent = Intent(this@SurveyManager, GpsLocationActivity::class.java)
-        startActivityForResult(intent, GPS_RESULT)
+        val prevSurvey = findPrevious(firstQ)
+        if(prevSurvey != null && surveyStatus[prevSurvey] != "done"){
+            // continuing from previous attempt
+            val nextQ = sQuestions[prevSurvey]!!
+            results["sid"] = surveyStatus[prevSurvey].toString() //restore the id of the survey we are doing
+            databaseUser.child(prevSurvey).removeValue()
+            sendQuestion(nextQ)
+        } else {
+            // starting a new survey
+            results["startTimestamp"] = LocalDateTime.now().toString() // get day and time
+            results["sid"] = databaseResults.push().key.toString()
+            val intent = Intent(this@SurveyManager, GpsLocationActivity::class.java)
+            startActivityForResult(intent, GPS_RESULT)
+        }
+    }
+
+    private fun findPrevious(firstQ: String): String? {
+        for(qid in surveyStatus){
+            Log.i(TAG, "findprevious: $qid")
+            if(sQuestions[qid.key]!!.surveyNumber == sQuestions[firstQ]!!.surveyNumber){
+                return qid.key
+            }
+        }
+        return null
     }
 
     private fun sendQuestion(question: Question){
         // Send intent to correct question type along with question
         var intent: Intent? = null
         //logQuestion(question)
+        val temp = question.qType
+        Log.i(TAG, "Creating intent for $temp")
+
         if(question.qType == TYPE_CLICKER){
             intent = Intent(this@SurveyManager, ClickerActivity::class.java)
-        } else if(question.qType == TYPE_MC){
+        } else if(question.qType == TYPE_MC || question.qType == TYPE_MC2){
             intent = Intent(this@SurveyManager, MultipleChoiceActivity::class.java)
+        } else {
+            saveToFire()
+            return //error
         }
         // pack intent with necessary data in question
         intent = packQuestionAsExtra(question, intent!!)
         Log.i(TAG, "Sending question")
-        startActivityForResult(intent, 1)
+        results["lastQuestion"] = question.qid
+        startActivityForResult(intent, QUESTION_RESULT)
     }
 
     private fun packQuestionAsExtra(q: Question, intent: Intent): Intent {
@@ -107,10 +138,14 @@ class SurveyManager : AppCompatActivity() {
     // runs when question activity completes
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.i(TAG, "Got into result")
+        Log.i(TAG, "Got into result, code $resultCode")
+        val t = data.toString()
+        Log.i(TAG, "Got into result, code $t")
 
-        if(resultCode != Activity.RESULT_OK) {
-            return // there was an error
+        if(resultCode != Activity.RESULT_OK){ // they stopped or pressed back or something went wrong
+            // each user has a key value for each survey where key = qid of the question that was
+            // left off and the value is the sid of the survey results
+            saveToFire()
         }
 
         // Result for GPS
@@ -119,7 +154,7 @@ class SurveyManager : AppCompatActivity() {
             Log.i(TAG, "Got into GPS result ok, got $addr")
             results["address"] = addr
             // ask weather question
-            // val weatherQuestion = Question("weather", "What best describes the current Weather Conditions?",
+            //val weatherQuestion = Question("weather", "What best describes the current Weather Conditions?",
             //        "Good/Fair, Extremely Cold or Extremely Hot, Overcast, Rainy", firstQuestion, "",
             //        TYPE_MC, "0", "none", "0")
             //val intent = Intent(this@SurveyManager, )
@@ -139,7 +174,7 @@ class SurveyManager : AppCompatActivity() {
             val answer = data.getStringExtra(QANSWER_STRING)
             // add the answered question to the results
             results[answeredQID] = answer
-            var nextQ: String?
+            val nextQ: String?
             //if the answered question has subquestions, check and see if conditions met to ask them
             if (sQuestions[answeredQID]!!.nextSub != "") {
                 //only check for no or null or 0
@@ -155,16 +190,14 @@ class SurveyManager : AppCompatActivity() {
 
             Log.i(TAG, "Next question is : $nextQ")
             if (nextQ == "done") {
-                // get the end timestamp
-                results["endTimestamp"] = LocalDateTime.now().toString() // get day and time
-
+                postResults(HashMap<String, Any>(results))
                 // mark survey that question belongs to as done
-                //post results to firebase for this user
-                val childUpdates: HashMap<String, Any> = HashMap(results)
-                Log.i(TAG, "Putting answers into $userID")
-                val temp = childUpdates.toString()
-                Log.i(TAG, "Answers: $temp")
-                databaseUsers.child(userID).updateChildren(childUpdates)
+                val lastQuestion = results["lastQuestion"]
+                if(lastQuestion != null) {
+                    databaseUser.child(lastQuestion).setValue("done")
+                    surveyStatus[lastQuestion] = "done"
+                }
+                results = HashMap() // clear results
             } else { // ask next question
                 val temp = sQuestions[nextQ]?.qText
                 Log.i(TAG, "Next question: $temp")
@@ -174,6 +207,27 @@ class SurveyManager : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun saveToFire(){
+        val lastQuestion = sQuestions[results["lastQuestion"]]
+        if(lastQuestion != null) {
+            postResults(HashMap<String, Any>(results))
+            Log.i(TAG, "Putting survey status into $userID")
+            databaseUser.child(lastQuestion.qid).setValue(results["sid"])
+        }
+    }
+
+    private fun postResults(toPost: HashMap<String, Any>){
+        // get the end timestamp
+        toPost["endTimestamp"] = LocalDateTime.now().toString() // get day and time
+        toPost["userID"] = userID
+
+        //post results to firebase
+        Log.i(TAG, "Putting answers into $userID")
+        val temp = toPost.toString()
+        Log.i(TAG, "Posting answers: $temp")
+        databaseResults.child(toPost["sid"].toString()).updateChildren(toPost)
     }
 
     private fun initializeViews() {
@@ -189,18 +243,41 @@ class SurveyManager : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        databaseQuestions.addListenerForSingleValueEvent(object : ValueEventListener {
+        // change a state variable in on restart
+        if(!restarted){
+            // get the survey questions
+            databaseQuestions.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    sQuestions.clear()
+                    Log.i(TAG, "Starting get questions")
+
+                    for(post in dataSnapshot.children){
+                        //get the question
+                        val curr = post.toString()
+                        //Log.i(TAG, "Got: $curr from database")
+                        val question = post.getValue<Question>(Question::class.java)!!
+                        //add it to the list
+                        sQuestions[question.qid] = question
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+
+                }
+            })
+        }
+        // get the users status
+        databaseUser.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                sQuestions.clear()
-                Log.i(TAG, "Starting get questions")
-                //dataSnapshot.child(SURVEY1_STRING).children.mapNotNullTo(s2Questions) { it.toString() }
+                surveyStatus.clear()
+                Log.i(TAG, "Starting get surveyStatus")
+
                 for(post in dataSnapshot.children){
-                    //get the question
-                    val curr = post.toString()
-                    //Log.i(TAG, "Got: $curr from database")
-                    val question = post.getValue<Question>(Question::class.java)!!
-                    //add it to the list
-                    sQuestions[question.qid] = question
+                    val survey = post.key!!
+                    val status = post.getValue().toString()
+                    //Log.i(TAG, "Got: $survey status is $status")
+                    //add it to map
+                    surveyStatus[survey] = status
                 }
             }
 
@@ -210,11 +287,17 @@ class SurveyManager : AppCompatActivity() {
         })
     }
 
+    override fun onRestart() {
+        super.onRestart()
+        restarted = true
+    }
+
     companion object {
         private const val QID_STRING = "qid"
         private const val QANSWER_STRING = "qanswer"
         private const val TYPE_CLICKER = "clicker (default 0)"
         private const val TYPE_MC = "Radio button"
+        private const val TYPE_MC2 = "Radio Button"
         private const val S1_Q1 = "1:1"
         private const val S2_Q1 = "2:1"
         private const val S3_Q1 = "3:1"

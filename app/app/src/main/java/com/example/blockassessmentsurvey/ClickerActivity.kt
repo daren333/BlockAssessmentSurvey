@@ -16,6 +16,7 @@ class ClickerActivity : AppCompatActivity() {
     private var addCount: ImageButton? = null
     private var removeCount: ImageButton? = null
     private var doneBtn: ImageButton? = null
+    private var finished: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
