@@ -10,6 +10,10 @@ import android.view.View
 import android.widget.*
 import androidx.core.view.updatePadding
 
+
+private lateinit var radioContainer : RadioGroup
+
+
 class MultipleChoiceActivity : AppCompatActivity() {
 
     private var questionText: TextView? = null
@@ -29,7 +33,7 @@ class MultipleChoiceActivity : AppCompatActivity() {
 
         val questions = intent.getStringExtra(QANSWER_STRING)
 
-        val radioContainer = findViewById<RadioGroup>(R.id.radioGroup)
+        radioContainer = findViewById<RadioGroup>(R.id.radioGroup)
         radioContainer.setOrientation(LinearLayout.HORIZONTAL)
 
         for (option in questions.split(",")){
@@ -52,29 +56,7 @@ class MultipleChoiceActivity : AppCompatActivity() {
 
         doneBtn = findViewById(R.id.done)
 
-        doneBtn?.setOnClickListener({
-
-
-            val data = Intent()
-
-
-            //gets the selected radio buttons text
-            val ans = findViewById<RadioButton>(radioContainer!!.checkedRadioButtonId).text.toString()
-
-            // puts the ans text into the intent
-            data.putExtra(QANSWER_STRING,ans)
-
-            //put the question id in the intent
-            data.putExtra(QID_STRING, intent.getStringExtra(QID_STRING))
-
-            setResult(Activity.RESULT_OK, data)
-            finish()
-
-
-
-            Log.i(TAG,ans)
-
-        })
+        doneBtn?.setOnClickListener{ submit() }
 
 //        radioContainer.checkedRadioButtonId.text
 
@@ -82,6 +64,34 @@ class MultipleChoiceActivity : AppCompatActivity() {
 
     }
 
+    private fun submit() {
+
+
+        //gets the selected radio buttons text
+        val ans = findViewById<RadioButton>(radioContainer.checkedRadioButtonId)
+
+        if(ans == null) {
+            Toast.makeText(applicationContext, "Please select an answer to continue.", Toast.LENGTH_LONG).show()
+            return
+        }
+        else {
+
+            val data = Intent()
+
+            // puts the ans text into the intent
+            data.putExtra(QANSWER_STRING, ans.text.toString())
+
+            //put the question id in the intent
+            data.putExtra(QID_STRING, intent.getStringExtra(QID_STRING))
+
+            setResult(Activity.RESULT_OK, data)
+            finish()
+
+            Log.i(TAG, ans.text.toString())
+
+            return
+        }
+    }
 
 
     companion object {
