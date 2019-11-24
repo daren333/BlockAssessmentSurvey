@@ -34,7 +34,7 @@ class MultipleChoiceActivity : AppCompatActivity() {
         val questions = intent.getStringExtra(QANSWER_STRING)
 
         radioContainer = findViewById<RadioGroup>(R.id.radioGroup)
-        radioContainer.setOrientation(LinearLayout.HORIZONTAL)
+        radioContainer.setOrientation(LinearLayout.VERTICAL)
 
         for (option in questions.split(",")){
 
