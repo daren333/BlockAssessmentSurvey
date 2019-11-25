@@ -179,16 +179,17 @@ class SurveyManager : AppCompatActivity() {
             Log.i(TAG, "Got into GPS result ok, got $addr")
             results["address"] = addr
             // ask weather question
-            //val weatherQuestion = Question("weather", "What best describes the current Weather Conditions?",
-            //        "Good/Fair, Extremely Cold or Extremely Hot, Overcast, Rainy", firstQuestion, "",
-            //        TYPE_MC, "0", "none", "0")
-            //val intent = Intent(this@SurveyManager, )
-            val toAsk = sQuestions[firstQuestion]
-            if(toAsk == null){
-                return //there was an error
-            } else {
-                sendQuestion(toAsk)
-            }
+            val weatherQuestion = Question("weather", "What best describes the current Weather Conditions?",
+                    "Good/Fair, Extremely Cold or Extremely Hot, Overcast, Rainy", firstQuestion, "",
+                    TYPE_MC, "0", "none", "0")
+
+            sendQuestion(weatherQuestion)
+            //val toAsk = sQuestions[firstQuestion]
+            //if(toAsk == null){
+            //    return //there was an error
+            //} else {
+            //    sendQuestion(toAsk)
+            //}
         }
 
         // Result for Questions
@@ -200,8 +201,11 @@ class SurveyManager : AppCompatActivity() {
             // add the answered question to the results
             results[answeredQID] = answer
             val nextQ: String?
-            //if the answered question has subquestions, check and see if conditions met to ask them
-            if (sQuestions[answeredQID]!!.nextSub != "") {
+            //if it is the weather question
+            if (answeredQID == "weather"){
+                nextQ = sQuestions[firstQuestion]!!.qid
+            } else if (sQuestions[answeredQID]!!.nextSub != "") {
+                //if the answered question has subquestions, check and see if conditions met to ask them
                 //only check for no or null or 0
                 if (answer == sQuestions[answeredQID]!!.skipLogic) {
                     nextQ = sQuestions[answeredQID]!!.next
