@@ -110,7 +110,8 @@ class SurveyManager : AppCompatActivity() {
 
         if(question.qType == TYPE_CLICKER){
             intent = Intent(this@SurveyManager, ClickerActivity::class.java)
-        } else if(question.qType == TYPE_MC || question.qType == TYPE_MC2){
+        } else if(question.qType == TYPE_MC || question.qType == TYPE_MC2
+                || question.qType == TYPE_MC3 || question.qType == TYPE_MC4){
             intent = Intent(this@SurveyManager, MultipleChoiceActivity::class.java)
         } else {
             saveToFire()
@@ -141,14 +142,16 @@ class SurveyManager : AppCompatActivity() {
     // runs when question activity completes
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.i(TAG, "Got into result, code $resultCode")
+        Log.i(TAG, "Got into result, result code $resultCode")
+        Log.i(TAG, "Result, request code $requestCode")
+
         val t = data.toString()
-        Log.i(TAG, "Got into result, code $t")
+        Log.i(TAG, "Result data is: $t")
 
         if(resultCode == Activity.RESULT_CANCELED && data != null){
             // back button was pressed, ask previous question
             val backedQ = data.getStringExtra(QID_STRING)
-            val currNum = sQuestions[backedQ]!!.qNum
+            val currNum = backedQ.split(":")[1]
             val prevNum = currNum.toInt() - 1
             val currSurvey = sQuestions[backedQ]!!.surveyNumber
             Log.i(TAG, "Current question $currNum, previous question $prevNum")
@@ -166,6 +169,7 @@ class SurveyManager : AppCompatActivity() {
         else if(resultCode != Activity.RESULT_OK){ // they stopped or pressed back or something went wrong
             // each user has a key value for each survey where key = qid of the question that was
             // left off and the value is the sid of the survey results
+            Log.i(TAG, "Unexpected cancel")
             saveToFire()
         }
 
@@ -319,6 +323,11 @@ class SurveyManager : AppCompatActivity() {
         private const val TYPE_CLICKER = "clicker (default 0)"
         private const val TYPE_MC = "Radio button"
         private const val TYPE_MC2 = "Radio Button"
+        private const val TYPE_MC3 = "Radio button (default 0)"
+        private const val TYPE_MC4 = "Multiple choice"
+
+
+
         private const val S1_Q1 = "1:1"
         private const val S2_Q1 = "2:1"
         private const val S3_Q1 = "3:1"
