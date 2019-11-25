@@ -74,6 +74,7 @@ class SurveyManager : AppCompatActivity() {
         results = HashMap() // clear the results from previous survey
         val prevSurvey = findPrevious(firstQ)
         if(prevSurvey != null && surveyStatus[prevSurvey] != "done"){
+            // Should throw up a notice "hey do you want to continue or start over?"
             // continuing from previous attempt
             val nextQ = sQuestions[prevSurvey]!!
             results["sid"] = surveyStatus[prevSurvey].toString() //restore the id of the survey we are doing
@@ -91,8 +92,10 @@ class SurveyManager : AppCompatActivity() {
     private fun findPrevious(firstQ: String): String? {
         for(qid in surveyStatus){
             Log.i(TAG, "findprevious: $qid")
-            if(sQuestions[qid.key]!!.surveyNumber == sQuestions[firstQ]!!.surveyNumber){
-                return qid.key
+            if(sQuestions[qid.key] != null){
+                if(sQuestions[qid.key]!!.surveyNumber == sQuestions[firstQ]!!.surveyNumber){
+                    return qid.key
+                }
             }
         }
         return null
@@ -142,7 +145,25 @@ class SurveyManager : AppCompatActivity() {
         val t = data.toString()
         Log.i(TAG, "Got into result, code $t")
 
-        if(resultCode != Activity.RESULT_OK){ // they stopped or pressed back or something went wrong
+        if(resultCode == Activity.RESULT_CANCELED && data != null){
+            // back button was pressed, ask previous question
+            val backedQ = data.getStringExtra(QID_STRING)
+            val currNum = sQuestions[backedQ]!!.qNum
+            val prevNum = currNum.toInt() - 1
+            val currSurvey = sQuestions[backedQ]!!.surveyNumber
+            Log.i(TAG, "Current question $currNum, previous question $prevNum")
+            if(prevNum > 0) {
+                // ask the previous question
+                val prevID = currSurvey + ":" + prevNum.toString()
+                if(sQuestions[prevID] != null){
+                    sendQuestion(sQuestions[prevID]!!)
+                }
+            } else {
+                saveToFire()
+            }
+        }
+
+        else if(resultCode != Activity.RESULT_OK){ // they stopped or pressed back or something went wrong
             // each user has a key value for each survey where key = qid of the question that was
             // left off and the value is the sid of the survey results
             saveToFire()

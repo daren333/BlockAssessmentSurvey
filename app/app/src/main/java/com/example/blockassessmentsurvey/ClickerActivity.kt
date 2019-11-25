@@ -16,6 +16,8 @@ class ClickerActivity : AppCompatActivity() {
     private var addCount: ImageButton? = null
     private var removeCount: ImageButton? = null
     private var doneBtn: ImageButton? = null
+    private var backBtn: ImageButton? = null
+
     private var finished: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +35,7 @@ class ClickerActivity : AppCompatActivity() {
         removeCount = findViewById(R.id.remove)
 
         doneBtn = findViewById(R.id.done)
+        backBtn = findViewById(R.id.back)
         addCount?.setOnClickListener {
             val txt = countText?.text.toString()
 
@@ -76,6 +79,17 @@ class ClickerActivity : AppCompatActivity() {
             data.putExtra(QID_STRING, intent.getStringExtra(QID_STRING))
 
             setResult(Activity.RESULT_OK, data)
+            finish()
+        }
+
+        //When the user clicks on the done button returns to survey manager
+        backBtn?.setOnClickListener {
+            val data = Intent()
+
+            //put the question id in the intent
+            data.putExtra(QID_STRING, intent.getStringExtra(QID_STRING))
+
+            setResult(Activity.RESULT_CANCELED, data)
             finish()
         }
     }
