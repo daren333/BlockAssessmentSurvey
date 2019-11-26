@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import com.google.firebase.database.*
 import java.time.LocalDateTime
 
@@ -23,6 +24,8 @@ class SurveyManager : AppCompatActivity() {
     private lateinit var servicesButton: ImageView
     private lateinit var publicTransitButton: ImageView
     private lateinit var healthButton: ImageView
+    private var mDialog: DialogFragment? = null
+
 
     private lateinit var sQuestions: MutableMap<String, Question>
     private lateinit var firstQuestion: String
@@ -75,6 +78,21 @@ class SurveyManager : AppCompatActivity() {
         val prevSurvey = findPrevious(firstQ)
         if(prevSurvey != null && surveyStatus[prevSurvey] != "done"){
             // Should throw up a notice "hey do you want to continue or start over?"
+            mDialog = AlertDialogFragment.newInstance(prevSurvey)
+            mDialog!!.show(supportFragmentManager, "AlertDialog")
+            //will be done in continue survey
+        } else {
+            // starting a new survey
+            results["startTimestamp"] = LocalDateTime.now().toString() // get day and time
+            results["sid"] = databaseResults.push().key.toString()
+            val intent = Intent(this@SurveyManager, GpsLocationActivity::class.java)
+            startActivityForResult(intent, GPS_RESULT)
+        }
+    }
+
+    internal fun continueSurvey(cont: Boolean, prevSurvey: String){
+        mDialog!!.dismiss()
+        if(cont){
             // continuing from previous attempt
             val nextQ = sQuestions[prevSurvey]!!
             results["sid"] = surveyStatus[prevSurvey].toString() //restore the id of the survey we are doing
@@ -87,6 +105,7 @@ class SurveyManager : AppCompatActivity() {
             val intent = Intent(this@SurveyManager, GpsLocationActivity::class.java)
             startActivityForResult(intent, GPS_RESULT)
         }
+
     }
 
     private fun findPrevious(firstQ: String): String? {
