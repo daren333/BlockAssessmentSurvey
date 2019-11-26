@@ -100,6 +100,7 @@ class SurveyManager : AppCompatActivity() {
             sendQuestion(nextQ)
         } else {
             // starting a new survey
+            databaseUser.child(prevSurvey).removeValue() // remove the old survey saved
             results["startTimestamp"] = LocalDateTime.now().toString() // get day and time
             results["sid"] = databaseResults.push().key.toString()
             val intent = Intent(this@SurveyManager, GpsLocationActivity::class.java)
