@@ -204,12 +204,6 @@ class SurveyManager : AppCompatActivity() {
                     TYPE_MC, "0", "none", "0")
 
             sendQuestion(weatherQuestion)
-            //val toAsk = sQuestions[firstQuestion]
-            //if(toAsk == null){
-            //    return //there was an error
-            //} else {
-            //    sendQuestion(toAsk)
-            //}
         }
 
         // Result for Questions

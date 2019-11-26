@@ -46,10 +46,12 @@ class LoginActivity : AppCompatActivity() {
         val pass_string: String = userPassword!!.text.toString()
         if (TextUtils.isEmpty(email_string)) {
             Toast.makeText(applicationContext, "Please enter email...", Toast.LENGTH_LONG).show()
+            progressBar!!.visibility = View.GONE
             return
         }
         if (TextUtils.isEmpty(pass_string)) {
             Toast.makeText(applicationContext, "Please enter password!", Toast.LENGTH_LONG).show()
+            progressBar!!.visibility = View.GONE
             return
         }
 
@@ -64,6 +66,7 @@ class LoginActivity : AppCompatActivity() {
                     Log.i("Lab-Fire", "Sending $currUid")
                     val intent = Intent(this@LoginActivity, SurveyManager::class.java)
                     intent.putExtra("UserID", currUid)
+                    progressBar!!.visibility = View.GONE
                     startActivity(intent)
                 } else {
                     Toast.makeText(
@@ -71,6 +74,7 @@ class LoginActivity : AppCompatActivity() {
                         "Login failed! Please try again later",
                         Toast.LENGTH_LONG
                     ).show()
+                    progressBar!!.visibility = View.GONE
                 }
             }
 
