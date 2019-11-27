@@ -111,9 +111,12 @@ class SurveyManager : AppCompatActivity() {
         if(question.qType == TYPE_CLICKER){
             intent = Intent(this@SurveyManager, ClickerActivity::class.java)
         } else if(question.qType == TYPE_MC || question.qType == TYPE_MC2
-                || question.qType == TYPE_MC3 || question.qType == TYPE_MC4){
+                || question.qType == TYPE_MC3){
             intent = Intent(this@SurveyManager, MultipleChoiceActivity::class.java)
-        } else {
+        } else if(question.qType == TYPE_MC4){
+            intent = Intent(this@SurveyManager, MultipleAnswerActivity::class.java)
+        }
+        else {
             saveToFire()
             return //error
         }
@@ -184,6 +187,7 @@ class SurveyManager : AppCompatActivity() {
                     TYPE_MC, "0", "none", "0")
 
             sendQuestion(weatherQuestion)
+
             //val toAsk = sQuestions[firstQuestion]
             //if(toAsk == null){
             //    return //there was an error
