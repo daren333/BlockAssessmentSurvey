@@ -93,6 +93,10 @@ class SurveyManager : AppCompatActivity() {
         if(question.qType == TYPE_CLICKER){
             intent = Intent(this@SurveyManager, ClickerActivity::class.java)
         }
+
+        if(question.qType == TYPE_MULT){
+            intent = Intent(this@SurveyManager, MultipleChoiceActivity::class.java)
+        }
         // pack intent with necessary data in question
         intent = packQuestionAsExtra(question, intent!!)
         Log.i(TAG, "Sending question")
@@ -194,6 +198,7 @@ class SurveyManager : AppCompatActivity() {
         private const val QID_STRING = "qid"
         private const val QANSWER_STRING = "qanswer"
         private const val TYPE_CLICKER = "clicker (default 0)"
+        private const val TYPE_MULT = "Radio button"
         private const val S1_Q1 = "1:1"
         private const val S2_Q1 = "2:1"
         private const val QTEXT_STRING = "questionstring"
