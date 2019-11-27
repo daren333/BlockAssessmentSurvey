@@ -8,6 +8,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.core.view.iterator
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -44,8 +45,9 @@ class MultipleAnswerActivity : AppCompatActivity() {
             //toAdd.gravity = Gravity.CENTER
 
             toAdd.text = option
-            // Flip isChecked property when
-            //toAdd.setOnClickListener { onChipClicked(toAdd) }
+            if(option.contentEquals("Other")){
+                toAdd.setOnCheckedChangeListener {b, bool -> displayTextBox() }
+            }
             Log.i(TAG,option)
 
 
@@ -61,17 +63,37 @@ class MultipleAnswerActivity : AppCompatActivity() {
 
     }
 
+    private fun displayTextBox(){
+        val textBox = findViewById<TextView>(R.id.editText)
+        if (textBox.isShown){
+            textBox.setVisibility(View.INVISIBLE)
+        }
+        else{
+            textBox.setVisibility(View.VISIBLE)
+        }
+        return
+    }
+
     private fun submit() {
 
         val answers = mutableListOf<String>()
+        val textBox = findViewById<TextView>(R.id.editText)
+
         //gets the selected radio buttons text
         for (checkBox in checkBoxContainer.iterator()) {
             val checkedAns= findViewById<CheckBox>(checkBox.id)
-            if(checkedAns.isChecked()){
+            if(checkedAns.isChecked() && !checkedAns.text.equals("Other")){
                 answers.add(checkedAns.text.toString())
             }
         }
         //val ans = findViewById<Chip>(chipContainer.checkedChipId)
+        if(textBox.isShown){
+            if(textBox.text.isBlank()){
+                Toast.makeText(applicationContext, "Please describe other to continue.", Toast.LENGTH_LONG).show()
+                return
+            }
+            answers.add("Other: " + textBox.text.toString())
+        }
 
         if(answers.isEmpty()) {
             Toast.makeText(applicationContext, "Please select an answer to continue.", Toast.LENGTH_LONG).show()

@@ -27,7 +27,24 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="@+id/QuestionText"
-        app:layout_constraintTop_toBottomOf="@+id/QuestionText" />
+        app:layout_constraintTop_toBottomOf="@+id/QuestionText">
+
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:ems="10"
+        android:hint="Please describe:"
+        android:inputType="textPersonName"
+        android:lastBaselineToBottomHeight="5dp"
+        android:outlineProvider="none"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
 
     <ImageButton
         android:id="@+id/done"
@@ -36,9 +53,9 @@
 
         android:layout_centerHorizontal="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.528"
+        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup2"
+        app:layout_constraintTop_toBottomOf="@+id/editText"
         app:srcCompat="@drawable/ic_done_black_24dp" />
 
 
