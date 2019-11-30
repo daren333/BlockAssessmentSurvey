@@ -10,6 +10,7 @@
     <color name="primary_text">#FFFFFF</color>
     <color name="secondary_text">#727272</color>
     <color name="edit_text">#202020</color>
+    <color name="completed_survey">#E152AA13</color>
 
     <color name="black_overlay">#66000000</color>
 </resources>
