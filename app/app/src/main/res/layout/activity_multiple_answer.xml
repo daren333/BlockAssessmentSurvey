@@ -75,7 +75,7 @@
         android:layout_height="wrap_content"
 
 
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="15dp"
         android:text="Submit Survey"
         app:layout_constraintEnd_toEndOf="@+id/done"
         app:layout_constraintStart_toStartOf="@+id/back"
