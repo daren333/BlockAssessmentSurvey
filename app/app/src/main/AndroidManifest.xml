@@ -16,12 +16,10 @@
         <activity android:name=".MultipleChoiceActivity" />
         <activity android:name=".MultipleAnswerActivity" />
         <activity android:name=".TextActivity" />
-        <activity android:name=".SurveySelectorActivity" />
         <activity android:name=".SurveyManager" />
         <activity
             android:name=".GpsLocationActivity"
             android:label="@string/title_activity_get_gps_location"/>
-        <activity android:name=".HelloActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
