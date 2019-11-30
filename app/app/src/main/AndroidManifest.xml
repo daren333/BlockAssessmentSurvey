@@ -18,6 +18,8 @@
         <activity android:name=".TextActivity" />
         <activity android:name=".SurveySelectorActivity" />
         <activity android:name=".SurveyManager" />
+        <activity android:name=".fillInTheBlankActivity" />
+
         <activity
             android:name=".GpsLocationActivity"
             android:label="@string/title_activity_get_gps_location"/>

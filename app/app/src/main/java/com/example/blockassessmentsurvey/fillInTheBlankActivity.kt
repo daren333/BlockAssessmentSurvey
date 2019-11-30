@@ -2,11 +2,11 @@ package com.example.blockassessmentsurvey
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 
 class fillInTheBlankActivity : AppCompatActivity() {
 
@@ -16,7 +16,7 @@ class fillInTheBlankActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_text)
+        setContentView(R.layout.activity_fill_in_the_blank)
 
         question = findViewById(R.id.QuestionText)
         response = findViewById(R.id.responseText)
@@ -31,8 +31,13 @@ class fillInTheBlankActivity : AppCompatActivity() {
 
             val data = Intent()
 
+            var answer = ""
+            if(response != null && response!!.text.isNotEmpty()){
+                answer = response!!.text.toString()
+            }
+
             //puts the answer in the intent
-            data.putExtra(QANSWER_STRING,response?.text)
+            data.putExtra(QANSWER_STRING,answer)
 
             //puts the question id in the string
             data.putExtra(QID_STRING,intent.getStringExtra(QID_STRING))

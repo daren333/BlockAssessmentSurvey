@@ -133,10 +133,11 @@ class SurveyManager : AppCompatActivity() {
         } else if(question.qType == TYPE_MC || question.qType == TYPE_MC2
                 || question.qType == TYPE_MC3){
             intent = Intent(this@SurveyManager, MultipleChoiceActivity::class.java)
-        } else if(question.qType == TYPE_MC4){
+        } else if(question.qType == TYPE_MA){
             intent = Intent(this@SurveyManager, MultipleAnswerActivity::class.java)
-        }
-        else {
+        } else if(question.qType == TYPE_FILL || question.qType == TYPE_FILL2){
+            intent = Intent(this@SurveyManager, fillInTheBlankActivity::class.java)
+        } else {
             saveToFire()
             return //error
         }
@@ -346,7 +347,9 @@ class SurveyManager : AppCompatActivity() {
         private const val TYPE_MC = "Radio button"
         private const val TYPE_MC2 = "Radio Button"
         private const val TYPE_MC3 = "Radio button (default 0)"
-        private const val TYPE_MC4 = "Multiple choice"
+        private const val TYPE_MA = "Multiple choice"
+        private const val TYPE_FILL = "fill in"
+        private const val TYPE_FILL2 = "Fill in the blank"
 
 
 
