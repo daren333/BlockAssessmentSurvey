@@ -22,6 +22,8 @@ class MultipleAnswerActivity : AppCompatActivity() {
 
     private var questionText: TextView? = null
     private var doneBtn: ImageButton? = null
+    private var progressBar: ProgressBar? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +37,12 @@ class MultipleAnswerActivity : AppCompatActivity() {
 
         val questions = intent.getStringExtra(QANSWER_STRING)
 
+        progressBar = findViewById(R.id.progressBar3)
+
+        val questionProgress = intent.getStringExtra(PROGRESS_STRING)
+        progressBar!!.setProgress(questionProgress.toInt())
+
         checkBoxContainer = findViewById<RadioGroup>(R.id.radioGroup2)
-        //chipContainer.setOrientation(LinearLayout.VERTICAL)
 
         for (option in questions.split(",")){
 
@@ -126,7 +132,7 @@ class MultipleAnswerActivity : AppCompatActivity() {
         private val QUESTION_STRING = "questionstring"
         private val QANSWER_STRING = "qanswer"
         private val QID_STRING = "qid"
-
+        private val PROGRESS_STRING = "progess"
     }
 
 }

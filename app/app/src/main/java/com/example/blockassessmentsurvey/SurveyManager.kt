@@ -17,6 +17,7 @@ class SurveyManager : AppCompatActivity() {
     private lateinit var databaseResults: DatabaseReference
     private lateinit var databaseQuestions: DatabaseReference
     private lateinit var databaseUser: DatabaseReference
+    private lateinit var databaseSurveyInfo: DatabaseReference
 
     private lateinit var blockButton: ImageView
     private lateinit var storesButton: ImageView
@@ -29,6 +30,7 @@ class SurveyManager : AppCompatActivity() {
     private var mDialog: DialogFragment? = null
 
 
+    private lateinit var sInfo: MutableMap<String, Survey>
     private lateinit var sQuestions: MutableMap<String, Question>
     private lateinit var firstQuestion: String
     private lateinit var results: MutableMap<String, String>
@@ -49,7 +51,10 @@ class SurveyManager : AppCompatActivity() {
         databaseQuestions = FirebaseDatabase.getInstance().getReference("questions")
         databaseUser = FirebaseDatabase.getInstance().getReference("users").child(userID)
         databaseResults = FirebaseDatabase.getInstance().getReference("results")
+        databaseSurveyInfo = FirebaseDatabase.getInstance().getReference("surveys")
 
+
+        sInfo = HashMap()
         sQuestions = HashMap()
         results = HashMap()
         surveyStatus = HashMap()
@@ -164,6 +169,21 @@ class SurveyManager : AppCompatActivity() {
         intent.putExtra(QTEXT_STRING, q.qText)
         intent.putExtra(QID_STRING, q.qid)
         intent.putExtra(QANSWER_STRING, q.answer)
+
+        // calculate current survey progress and pack
+        if(!q.qid.equals("weather")) {
+            val qInfo = q.qid.split(":")
+            val snum = qInfo[0]
+            val qnum = qInfo[1].toInt() * 100
+            val totalQs = sInfo[snum]!!.numberQuestions.toInt()
+            val progress = qnum / totalQs
+            intent.putExtra(PROGRESS_STRING, progress.toString())
+        }
+        else{
+            val progress = 0
+            intent.putExtra(PROGRESS_STRING, progress.toString())
+        }
+
         return intent
     }
 
@@ -334,6 +354,26 @@ class SurveyManager : AppCompatActivity() {
 
                 }
             })
+
+            databaseSurveyInfo.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(surveyDataSnapshot: DataSnapshot) {
+                    sInfo.clear()
+                    Log.i(TAG, "Starting get surveys")
+
+                    for(post in surveyDataSnapshot.children){
+                        //get the question
+                        val curr = post.toString()
+                        //Log.i(TAG, "Got: $curr from database")
+                        val survey = post.getValue<Survey>(Survey::class.java)!!
+                        //add it to the list
+                        sInfo[survey.surveyId] = survey
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+
+                }
+            })
         }
         // get the users status
         databaseUser.addValueEventListener(object : ValueEventListener {
@@ -366,6 +406,7 @@ class SurveyManager : AppCompatActivity() {
     companion object {
         private const val QID_STRING = "qid"
         private const val QANSWER_STRING = "qanswer"
+        private const val PROGRESS_STRING = "progess"
         private const val TYPE_CLICKER = "clicker (default 0)"
         private const val TYPE_MC = "Radio button"
         private const val TYPE_MC2 = "Radio Button"

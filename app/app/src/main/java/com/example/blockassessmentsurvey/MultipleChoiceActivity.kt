@@ -18,6 +18,7 @@ class MultipleChoiceActivity : AppCompatActivity() {
 
     private var questionText: TextView? = null
     private var doneBtn: ImageButton? = null
+    private var progressBar: ProgressBar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +33,11 @@ class MultipleChoiceActivity : AppCompatActivity() {
         questionText?.text = toAsk
 
         val questions = intent.getStringExtra(QANSWER_STRING)
+
+        progressBar = findViewById(R.id.progressBar4)
+
+        val questionProgress = intent.getStringExtra(PROGRESS_STRING)
+        progressBar!!.setProgress(questionProgress.toInt())
 
         radioContainer = findViewById<RadioGroup>(R.id.radioGroup)
         radioContainer.setOrientation(LinearLayout.VERTICAL)
@@ -99,6 +105,6 @@ class MultipleChoiceActivity : AppCompatActivity() {
         private val QUESTION_STRING = "questionstring"
         private val QANSWER_STRING = "qanswer"
         private val QID_STRING = "qid"
-
+        private val PROGRESS_STRING = "progess"
     }
 }

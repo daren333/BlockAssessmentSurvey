@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
@@ -17,6 +18,7 @@ class ClickerActivity : AppCompatActivity() {
     private var removeCount: ImageButton? = null
     private var doneBtn: ImageButton? = null
     private var backBtn: ImageButton? = null
+    private var progressBar: ProgressBar? = null
 
     private var finished: Boolean = false
 
@@ -36,6 +38,12 @@ class ClickerActivity : AppCompatActivity() {
 
         doneBtn = findViewById(R.id.done)
         backBtn = findViewById(R.id.back)
+
+        progressBar = findViewById(R.id.progressBar)
+
+        val questionProgress = intent.getStringExtra(PROGRESS_STRING)
+        progressBar!!.setProgress(questionProgress.toInt())
+
         addCount?.setOnClickListener {
             val txt = countText?.text.toString()
 
@@ -99,5 +107,6 @@ class ClickerActivity : AppCompatActivity() {
         private val QUESTION_STRING = "questionstring"
         private val QANSWER_STRING = "qanswer"
         private val QID_STRING = "qid"
+        private val PROGRESS_STRING = "progess"
     }
 }
