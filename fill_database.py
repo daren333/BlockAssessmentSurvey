@@ -42,7 +42,7 @@ class Survey:
             print(q.to_string())
 
 def build_json_obj(q):
-    return ({"qNum": str(q.questionNum), "questionId": str(q.questionId), "questionText": str(q.questionText), \
+    return ({"qNum": str(q.questionNum), "qid": str(q.questionId), "questionText": str(q.questionText), \
          "questionType": str(q.questionType), "answer": str(q.answer), \
              "surveyNumber": str(q.survey_num), "nextQuestion": str(q.next_q), \
                  "nextSubQuestion": str(q.next_sub_q)})
