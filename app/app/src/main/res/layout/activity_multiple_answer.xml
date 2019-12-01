@@ -37,7 +37,10 @@
         android:layout_height="0dp"
         android:ems="10"
         android:hint="Please describe:"
-        android:inputType="textPersonName"
+        android:inputType="textMultiLine"
+        android:lines="8"
+        android:maxLines="8"
+        android:minLines="1"
         android:lastBaselineToBottomHeight="5dp"
         android:outlineProvider="none"
         android:visibility="invisible"
@@ -52,7 +55,7 @@
         android:layout_height="wrap_content"
 
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText"
@@ -64,7 +67,7 @@
         android:layout_height="wrap_content"
 
         android:layout_marginStart="100dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="100dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText"
         app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
@@ -75,7 +78,7 @@
         android:layout_height="wrap_content"
 
 
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="15dp"
         android:text="Submit Survey"
         app:layout_constraintEnd_toEndOf="@+id/done"
         app:layout_constraintStart_toStartOf="@+id/back"

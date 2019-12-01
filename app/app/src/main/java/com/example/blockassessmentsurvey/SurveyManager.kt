@@ -2,8 +2,10 @@ package com.example.blockassessmentsurvey
 
 import android.app.Activity
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
@@ -31,6 +33,7 @@ class SurveyManager : AppCompatActivity() {
     private lateinit var firstQuestion: String
     private lateinit var results: MutableMap<String, String>
     private lateinit var surveyStatus: MutableMap<String, Any>
+    private lateinit var surveyNumToButton: MutableMap<Int, ImageView>
     private var restarted: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,24 +53,33 @@ class SurveyManager : AppCompatActivity() {
         sQuestions = HashMap()
         results = HashMap()
         surveyStatus = HashMap()
+        surveyNumToButton = HashMap()
 
         initializeViews()
 
         blockButton.setOnClickListener { startSurvey(S4_Q1) }
+        surveyNumToButton.put(4, blockButton)
 
         storesButton.setOnClickListener { startSurvey(S8_Q1) }
+        surveyNumToButton.put(8, storesButton)
 
         industryButton.setOnClickListener { startSurvey(S6_Q1)}
+        surveyNumToButton.put(6, industryButton)
 
         physicalDisorderButton.setOnClickListener { startSurvey(S7_Q1) }
+        surveyNumToButton.put(7, physicalDisorderButton)
 
         housingButton.setOnClickListener { startSurvey(S5_Q1) }
+        surveyNumToButton.put(5, housingButton)
 
         servicesButton.setOnClickListener { startSurvey(S1_Q1) }
+        surveyNumToButton.put(1, servicesButton)
 
         publicTransitButton.setOnClickListener { startSurvey(S3_Q1) }
+        surveyNumToButton.put(3, publicTransitButton)
 
         healthButton.setOnClickListener { startSurvey(S2_Q1) }
+        surveyNumToButton.put(2, healthButton)
 
     }
 
@@ -246,6 +258,14 @@ class SurveyManager : AppCompatActivity() {
                     surveyStatus[lastQuestion] = "done"
                 }
                 results = HashMap() // clear results
+
+                for(survey in surveyStatus.keys){
+                    if(surveyStatus.get(survey) == "done"){
+                        val surveyNum : Int = survey[0].toString().toInt()
+                        surveyNumToButton[surveyNum]!!.setImageTintList(ColorStateList.valueOf(getColor(R.color.completed_survey)))
+                    }
+                }
+
             } else { // ask next question
                 val temp = sQuestions[nextQ]?.qText
                 Log.i(TAG, "Next question: $temp")
@@ -291,6 +311,7 @@ class SurveyManager : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+
         // change a state variable in on restart
         if(!restarted){
             // get the survey questions
@@ -327,12 +348,14 @@ class SurveyManager : AppCompatActivity() {
                     //add it to map
                     surveyStatus[survey] = status
                 }
+
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
 
             }
         })
+
     }
 
     override fun onRestart() {
