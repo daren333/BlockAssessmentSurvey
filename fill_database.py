@@ -23,7 +23,7 @@ class Question:
         #return "{\"qId\": \"{}\", \"questionText\" : \"{}\", \"questionType\": \"{}\", \
          #            \"answer\": \"{}\", \"skipLogic\": \"{}\", \"surveyNumber\": \"{}\"\}" \
           #           .format(str(self.questionNum), self.questionText, self.questionType, self.answer, self.skip_logic, str(self.survey_num))
-       return "{\n\"qId\": " + str(self.questionId) + ",\n\"qNum\": " + str(self.questionNum) + ",\n\"questionText\": \"" + self.questionText + "\",\n\"questionType\": \"" + self.questionType \
+       return "{\n\"qid\": " + str(self.questionId) + ",\n\"qNum\": " + str(self.questionNum) + ",\n\"questionText\": \"" + self.questionText + "\",\n\"questionType\": \"" + self.questionType \
            + "\",\n\"answer\": \"" + self.answer + "\",\n\"surveyNumber\": " + str(self.survey_num) + "\",\n\"nextQuestion\": \""+ self.next_q + "\",\n\"nextSubQuestion\": \"" + str(self.next_sub_q) + "\"\n},\n"
 
 class Survey:
