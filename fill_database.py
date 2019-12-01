@@ -1,5 +1,4 @@
 import json
-import jsonpickle as jp
 import re
 import firebase_admin
 from firebase_admin import credentials
@@ -43,7 +42,7 @@ class Survey:
             print(q.to_string())
 
 def build_json_obj(q):
-    return ({'qNum': str(q.questionNum), "questionText": str(q.questionText), \
+    return ({"qNum": str(q.questionNum), "questionId": str(q.questionId), "questionText": str(q.questionText), \
          "questionType": str(q.questionType), "answer": str(q.answer), \
              "surveyNumber": str(q.survey_num), "nextQuestion": str(q.next_q), \
                  "nextSubQuestion": str(q.next_sub_q)})
@@ -102,7 +101,8 @@ for table in tables:
         elif len(q_parts) > 3 and q_parts[0]:
             q = Question(q_num, q_parts[0], q_parts[1], q_parts[2], q_parts[4], "", survey_num, tot_q_num)
             questions.append(q)
-            q_ref = ref.child(q.questionId).set(build_json_obj(q))
+            q_json = build_json_obj(q)
+            q_ref = ref.child(q.questionId).set(q_json)#build_json_obj(q))
             q_num += 1
             tot_q_num += 1
 
