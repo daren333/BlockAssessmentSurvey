@@ -1,20 +1,14 @@
 package com.example.blockassessmentsurvey
 
+
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.core.view.iterator
-import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
-
-
-import kotlinx.android.synthetic.main.activity_multiple_answer.*
 
 private lateinit var checkBoxContainer : RadioGroup
 
@@ -22,6 +16,9 @@ class MultipleAnswerActivity : AppCompatActivity() {
 
     private var questionText: TextView? = null
     private var doneBtn: ImageButton? = null
+    private var progressBar: ProgressBar? = null
+    private var submitButton: Button? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +32,12 @@ class MultipleAnswerActivity : AppCompatActivity() {
 
         val questions = intent.getStringExtra(QANSWER_STRING)
 
+        progressBar = findViewById(R.id.progressBar3)
+
+        val questionProgress = intent.getStringExtra(PROGRESS_STRING)
+        progressBar!!.setProgress(questionProgress.toInt())
+
         checkBoxContainer = findViewById<RadioGroup>(R.id.radioGroup2)
-        //chipContainer.setOrientation(LinearLayout.VERTICAL)
 
         for (option in questions.split(",")){
 
@@ -55,7 +56,14 @@ class MultipleAnswerActivity : AppCompatActivity() {
             checkBoxContainer.addView(toAdd)
         }
 
-        doneBtn = findViewById(R.id.done)
+        submitButton = findViewById(R.id.submit)
+
+        submitButton?.setOnClickListener {
+            setResult(Activity.RESULT_CANCELED)
+            finish()
+        }
+
+        doneBtn = findViewById(R.id.next)
 
         doneBtn?.setOnClickListener{ submit() }
 
@@ -126,7 +134,7 @@ class MultipleAnswerActivity : AppCompatActivity() {
         private val QUESTION_STRING = "questionstring"
         private val QANSWER_STRING = "qanswer"
         private val QID_STRING = "qid"
-
+        private val PROGRESS_STRING = "progess"
     }
 
 }

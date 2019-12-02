@@ -5,8 +5,8 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import com.google.firebase.database.*
@@ -17,6 +17,7 @@ class SurveyManager : AppCompatActivity() {
     private lateinit var databaseResults: DatabaseReference
     private lateinit var databaseQuestions: DatabaseReference
     private lateinit var databaseUser: DatabaseReference
+    private lateinit var databaseSurveyInfo: DatabaseReference
 
     private lateinit var blockButton: ImageView
     private lateinit var storesButton: ImageView
@@ -29,6 +30,7 @@ class SurveyManager : AppCompatActivity() {
     private var mDialog: DialogFragment? = null
 
 
+    private lateinit var sInfo: MutableMap<String, Survey>
     private lateinit var sQuestions: MutableMap<String, Question>
     private lateinit var firstQuestion: String
     private lateinit var results: MutableMap<String, String>
@@ -46,10 +48,13 @@ class SurveyManager : AppCompatActivity() {
 
 
         //get reference to database
-        databaseQuestions = FirebaseDatabase.getInstance().getReference("questions")
+        databaseQuestions = FirebaseDatabase.getInstance().getReference("Questions_Test_Run")
         databaseUser = FirebaseDatabase.getInstance().getReference("users").child(userID)
         databaseResults = FirebaseDatabase.getInstance().getReference("results")
+        databaseSurveyInfo = FirebaseDatabase.getInstance().getReference("surveys")
 
+
+        sInfo = HashMap()
         sQuestions = HashMap()
         results = HashMap()
         surveyStatus = HashMap()
@@ -84,6 +89,10 @@ class SurveyManager : AppCompatActivity() {
     }
 
     private fun startSurvey(firstQ: String){
+        if(sQuestions[firstQ] == null){ // error, didn't get the survey questions
+            Toast.makeText(applicationContext, "Failed to access survey, please ensure you are connected to the internet and try again later.", Toast.LENGTH_LONG).show()
+            return
+        }
         //start by asking about GPS info and weather and get the time
         firstQuestion = firstQ
         results = HashMap() // clear the results from previous survey
@@ -164,6 +173,21 @@ class SurveyManager : AppCompatActivity() {
         intent.putExtra(QTEXT_STRING, q.qText)
         intent.putExtra(QID_STRING, q.qid)
         intent.putExtra(QANSWER_STRING, q.answer)
+
+        // calculate current survey progress and pack
+        if(!q.qid.equals("weather")) {
+            val qInfo = q.qid.split(":")
+            val snum = qInfo[0]
+            val qnum = qInfo[1].toInt() * 100
+            val totalQs = sInfo[snum]!!.numberQuestions.toInt()
+            val progress = qnum / totalQs
+            intent.putExtra(PROGRESS_STRING, progress.toString())
+        }
+        else{
+            val progress = 0
+            intent.putExtra(PROGRESS_STRING, progress.toString())
+        }
+
         return intent
     }
 
@@ -216,7 +240,7 @@ class SurveyManager : AppCompatActivity() {
             results["address"] = addr
             // ask weather question
             val weatherQuestion = Question("weather", "What best describes the current Weather Conditions?",
-                    "Good/Fair, Extremely Cold or Extremely Hot, Overcast, Rainy", firstQuestion, "",
+                    "Good or Fair/Extremely Cold or Extremely Hot/Overcast/Rainy", firstQuestion, "",
                     TYPE_MC, "0", "none", "0")
 
             sendQuestion(weatherQuestion)
@@ -266,6 +290,10 @@ class SurveyManager : AppCompatActivity() {
                     }
                 }
 
+                // show thank you message
+                val intent = Intent(this@SurveyManager, ThankYouActivity::class.java)
+                startActivity(intent)
+
             } else { // ask next question
                 val temp = sQuestions[nextQ]?.qText
                 Log.i(TAG, "Next question: $temp")
@@ -279,10 +307,25 @@ class SurveyManager : AppCompatActivity() {
 
     private fun saveToFire(){
         val lastQuestion = sQuestions[results["lastQuestion"]]
+        val temp = lastQuestion.toString()
+        Log.i(TAG, "Last question: $temp")
         if(lastQuestion != null) {
             postResults(HashMap<String, Any>(results))
             Log.i(TAG, "Putting survey status into $userID")
+            clearPrevSave(lastQuestion.surveyNumber)
             databaseUser.child(lastQuestion.qid).setValue(results["sid"])
+        }
+    }
+
+    // remove all entries from users SurveyStatus that are of the same survey
+    private fun clearPrevSave(surveyNumber: String){
+        for(surveyStat in surveyStatus){
+            val temp = surveyStat.toString()
+            Log.i(TAG, "checking value $temp")
+            val prevSurvey = sQuestions[surveyStat.key]!!.surveyNumber
+            if(prevSurvey == surveyNumber){
+                databaseUser.child(surveyStat.key).removeValue()
+            }
         }
     }
 
@@ -312,6 +355,27 @@ class SurveyManager : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
+        // get the users status
+        databaseUser.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                surveyStatus.clear()
+                Log.i(TAG, "Starting get surveyStatus")
+
+                for(post in dataSnapshot.children){
+                    val survey = post.key!!
+                    val status = post.getValue().toString()
+                    //Log.i(TAG, "Got: $survey status is $status")
+                    //add it to map
+                    surveyStatus[survey] = status
+                }
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+
+            }
+        })
+
         // change a state variable in on restart
         if(!restarted){
             // get the survey questions
@@ -334,28 +398,38 @@ class SurveyManager : AppCompatActivity() {
 
                 }
             })
-        }
-        // get the users status
-        databaseUser.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                surveyStatus.clear()
-                Log.i(TAG, "Starting get surveyStatus")
 
-                for(post in dataSnapshot.children){
-                    val survey = post.key!!
-                    val status = post.getValue().toString()
-                    //Log.i(TAG, "Got: $survey status is $status")
-                    //add it to map
-                    surveyStatus[survey] = status
+            databaseSurveyInfo.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(surveyDataSnapshot: DataSnapshot) {
+                    sInfo.clear()
+                    Log.i(TAG, "Starting get surveys")
+
+                    for(post in surveyDataSnapshot.children){
+                        //get the question
+                        val curr = post.toString()
+                        //Log.i(TAG, "Got: $curr from database")
+                        val survey = post.getValue<Survey>(Survey::class.java)!!
+                        //add it to the list
+                        sInfo[survey.surveyId] = survey
+                    }
                 }
 
+                override fun onCancelled(databaseError: DatabaseError) {
+
+                }
+            })
+        }
+    }
+
+    override fun onResume(){
+        super.onResume()
+
+        for(survey in surveyStatus.keys){
+            if(surveyStatus.get(survey) == "done"){
+                val surveyNum : Int = survey[0].toString().toInt()
+                surveyNumToButton[surveyNum]!!.setImageTintList(ColorStateList.valueOf(getColor(R.color.completed_survey)))
             }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-
-            }
-        })
-
+        }
     }
 
     override fun onRestart() {
@@ -366,6 +440,7 @@ class SurveyManager : AppCompatActivity() {
     companion object {
         private const val QID_STRING = "qid"
         private const val QANSWER_STRING = "qanswer"
+        private const val PROGRESS_STRING = "progess"
         private const val TYPE_CLICKER = "clicker (default 0)"
         private const val TYPE_MC = "Radio button"
         private const val TYPE_MC2 = "Radio Button"

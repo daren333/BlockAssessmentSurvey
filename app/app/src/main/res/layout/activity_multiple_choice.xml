@@ -24,12 +24,11 @@
         android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="@+id/QuestionText"
-        app:layout_constraintTop_toBottomOf="@+id/QuestionText" />
+        app:layout_constraintTop_toBottomOf="@+id/QuestionText"
+        tools:layout_editor_absoluteX="205dp" />
 
     <ImageButton
-        android:id="@+id/done"
+        android:id="@+id/next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -55,12 +54,36 @@
         android:id="@+id/submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="64dp"
 
         android:text="Submit Survey"
-        app:layout_constraintEnd_toEndOf="@+id/done"
+        app:layout_constraintEnd_toEndOf="@+id/next"
+        app:layout_constraintHorizontal_bias="0.585"
         app:layout_constraintStart_toStartOf="@+id/back"
         app:layout_constraintTop_toBottomOf="@+id/back" />
+
+    <ProgressBar
+        android:id="@+id/progressBar4"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="225dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="30dp"
+        android:max="100"
+        android:progressTint="#3D5AFE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Progress"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

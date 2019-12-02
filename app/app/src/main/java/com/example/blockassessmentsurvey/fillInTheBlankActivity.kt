@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
@@ -13,6 +14,7 @@ class fillInTheBlankActivity : AppCompatActivity() {
     private var question: TextView? = null
     private var response: EditText? = null
     private var doneBtn: ImageButton? = null
+    private var progressBar: ProgressBar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +23,10 @@ class fillInTheBlankActivity : AppCompatActivity() {
         question = findViewById(R.id.QuestionText)
         response = findViewById(R.id.responseText)
         doneBtn = findViewById(R.id.done)
+
+        progressBar = findViewById(R.id.progressBar2)
+        val questionProgress = intent.getStringExtra(PROGRESS_STRING)
+        progressBar!!.setProgress(questionProgress.toInt())
 
         //Sets the Question to be passed in
         question?.text = intent.getStringExtra(QUESTION_STRING)
@@ -54,5 +60,6 @@ class fillInTheBlankActivity : AppCompatActivity() {
         private val QUESTION_STRING = "questionstring"
         private val QANSWER_STRING = "qanswer"
         private val QID_STRING = "qid"
+        private val PROGRESS_STRING = "progess"
     }
 }
