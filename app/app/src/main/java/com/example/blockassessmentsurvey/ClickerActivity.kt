@@ -4,10 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
 class ClickerActivity : AppCompatActivity() {
@@ -19,6 +16,7 @@ class ClickerActivity : AppCompatActivity() {
     private var doneBtn: ImageButton? = null
     private var backBtn: ImageButton? = null
     private var progressBar: ProgressBar? = null
+    private var submitButton: Button? = null
 
     private var finished: Boolean = false
 
@@ -36,8 +34,9 @@ class ClickerActivity : AppCompatActivity() {
         addCount = findViewById(R.id.add)
         removeCount = findViewById(R.id.remove)
 
-        doneBtn = findViewById(R.id.done)
+        doneBtn = findViewById(R.id.next)
         backBtn = findViewById(R.id.back)
+        submitButton = findViewById(R.id.submit)
 
         progressBar = findViewById(R.id.progressBar)
 
@@ -98,6 +97,11 @@ class ClickerActivity : AppCompatActivity() {
             data.putExtra(QID_STRING, intent.getStringExtra(QID_STRING))
 
             setResult(Activity.RESULT_CANCELED, data)
+            finish()
+        }
+
+        submitButton?.setOnClickListener {
+            setResult(Activity.RESULT_CANCELED)
             finish()
         }
     }
