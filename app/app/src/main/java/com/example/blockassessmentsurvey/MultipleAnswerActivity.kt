@@ -39,7 +39,7 @@ class MultipleAnswerActivity : AppCompatActivity() {
 
         checkBoxContainer = findViewById<RadioGroup>(R.id.radioGroup2)
 
-        for (option in questions.split(",")){
+        for (option in questions.split("/")){
 
             val toAdd = CheckBox(this)
             toAdd.id = View.generateViewId()
