@@ -118,10 +118,7 @@ class ClickerActivity : AppCompatActivity() {
                 countText?.setText("")
                 return@setOnClickListener
             }
-
-
-
-//            data.putExtra(QANSWER_STRING,countText?.text.toString())
+            
             data.putExtra(QANSWER_STRING,ans.toString())
 
             //put the question id in the intent

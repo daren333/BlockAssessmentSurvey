@@ -78,25 +78,6 @@ class MultipleChoiceActivity : AppCompatActivity() {
 
         doneBtn?.setOnClickListener{ submit() }
 
-//        radioContainer.checkedRadioButtonId.text
-
-//
-//
-//            //gets the selected radio buttons text
-//            var ans = ""
-//
-//                try {
-//                    ans =
-//                        findViewById<RadioButton>(radioContainer!!.checkedRadioButtonId).text.toString()
-//                } catch (e: IllegalStateException) {
-//                    val t = Toast.makeText(this,"Please select an answer", Toast.LENGTH_LONG)
-//                    t. show()
-//                    return@setOnClickListener
-//                }
-
-
-
-
 
     }
 
