@@ -5,8 +5,8 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import com.google.firebase.database.*
@@ -89,6 +89,10 @@ class SurveyManager : AppCompatActivity() {
     }
 
     private fun startSurvey(firstQ: String){
+        if(sQuestions[firstQ] == null){ // error, didn't get the survey questions
+            Toast.makeText(applicationContext, "Failed to access survey, please ensure you are connected to the internet and try again later.", Toast.LENGTH_LONG).show()
+            return
+        }
         //start by asking about GPS info and weather and get the time
         firstQuestion = firstQ
         results = HashMap() // clear the results from previous survey
@@ -286,6 +290,10 @@ class SurveyManager : AppCompatActivity() {
                     }
                 }
 
+                // show thank you message
+                val intent = Intent(this@SurveyManager, ThankYouActivity::class.java)
+                startActivity(intent)
+
             } else { // ask next question
                 val temp = sQuestions[nextQ]?.qText
                 Log.i(TAG, "Next question: $temp")
@@ -299,10 +307,25 @@ class SurveyManager : AppCompatActivity() {
 
     private fun saveToFire(){
         val lastQuestion = sQuestions[results["lastQuestion"]]
+        val temp = lastQuestion.toString()
+        Log.i(TAG, "Last question: $temp")
         if(lastQuestion != null) {
             postResults(HashMap<String, Any>(results))
             Log.i(TAG, "Putting survey status into $userID")
+            clearPrevSave(lastQuestion.surveyNumber)
             databaseUser.child(lastQuestion.qid).setValue(results["sid"])
+        }
+    }
+
+    // remove all entries from users SurveyStatus that are of the same survey
+    private fun clearPrevSave(surveyNumber: String){
+        for(surveyStat in surveyStatus){
+            val temp = surveyStat.toString()
+            Log.i(TAG, "checking value $temp")
+            val prevSurvey = sQuestions[surveyStat.key]!!.surveyNumber
+            if(prevSurvey == surveyNumber){
+                databaseUser.child(surveyStat.key).removeValue()
+            }
         }
     }
 
@@ -331,6 +354,27 @@ class SurveyManager : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+
+        // get the users status
+        databaseUser.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                surveyStatus.clear()
+                Log.i(TAG, "Starting get surveyStatus")
+
+                for(post in dataSnapshot.children){
+                    val survey = post.key!!
+                    val status = post.getValue().toString()
+                    //Log.i(TAG, "Got: $survey status is $status")
+                    //add it to map
+                    surveyStatus[survey] = status
+                }
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+
+            }
+        })
 
         // change a state variable in on restart
         if(!restarted){
@@ -375,27 +419,6 @@ class SurveyManager : AppCompatActivity() {
                 }
             })
         }
-        // get the users status
-        databaseUser.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                surveyStatus.clear()
-                Log.i(TAG, "Starting get surveyStatus")
-
-                for(post in dataSnapshot.children){
-                    val survey = post.key!!
-                    val status = post.getValue().toString()
-                    //Log.i(TAG, "Got: $survey status is $status")
-                    //add it to map
-                    surveyStatus[survey] = status
-                }
-
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-
-            }
-        })
-
     }
 
     override fun onRestart() {
