@@ -1,0 +1,245 @@
+					
+Table 0a. General Information					
+					
+Question	Answer type	Answers	Skip logic		
+Start Location (please give the intersection)	fill in	n/a	none		
+What best describes the current Weather Conditions	Radio Button	Good/Fair  Extremely Cold or Extremely Hot  Overcast  Rainy	none		
+End Location (please give the intersection)	fill in	n/a	none		
+					
+Table 0b. Main Menu					
+					
+Question	Answer type	Possible Answers	Skip logic		
+What block feature would you like to assess?	Radio button	General Block Features/ Stores/ Industry/ Physical Disorder/ Housing/ Public Services/ Public Transit/ Health/ None of the above (Do not allow the user to choose sections that they have already completed.)	Skip to the appropriate table of questions depending on what is chosen. If “None of the above” is chosen, go to Table 2.		
+					
+Table 0c. Descriptions for Main Menu Answers					
+					
+Section	Description				
+General Block Features	This section includes a description of the overall street layout and street network. This section captures information related to the width and length of the street; signs, street lamps, fire hydrants, and other objects on the street.				
+Stores	This section provides information about the types of stores and businesses on the block. It includes permanent businesses and people selling things from the street, such as from food trucks or push carts.				
+Industry	Industrial zones are areas designated for the purposes of manufacturing activity. This section captures information related to land use, hazards, and other environmental conditions.				
+Physical Disorder	Physical disorder describes the process (or factors) by which communities fall into physical disrepair. At the least, physical disorder is an indication of lack of community investment and resources. Indicators include broken windows, eviction notices, vacant buildings, etc.				
+Housing	Residences are the places where people live. This section captures information about the types of residential buildings, housing conditions, etc. on the block.				
+Public Services	Public services are the places where we learn, worship, or play. This section captures information about the presence or absence of fire stations, places of worship, libraries, municipal buildings, parks, schools, etc.				
+Public Transit	This section provides information about the types of Public Transportation on the Block. This includes Bus stops, Bike Lanes, Park and Ride Lots, Bike Sharing stations, etc.				
+Health	This section provides information about the types of Medical and Health services available on the block. This Includes doctors offices, dentists, clinics, rehab facilities, etc.				
+					
+					
+Table 2. Exit Menu					
+					
+Question	Answer type	Possible Answers	Skip logic		
+Thank you for using the Community Block Assessment Tool. Your responses have been recorded.	none	n/a	n/a		
+					
+					
+Table 1. Public Services					
+					
+Question	Answer type	Answers	Skip logic	Next Question	Next Subquestion
+Count the number of fire stations.	clicker (default 0)	n/a	none	1:2	
+Count the number of police stations.	clicker (default 0)	n/a	none	1:3	
+Count the number of jails or prisons.	clicker (default 0)	n/a	none	1:4	
+Count the number of public libraries.	clicker (default 0)	n/a	none	1:5	
+Count the number of municipal buildings.	clicker (default 0)	n/a	none	1:6	
+Count the number of public parks.	clicker (default 0)	n/a	if 0, skip the next two questions	1:9	1:7
+Count the number of park signs.	clicker (default 0)	n/a	none	1:8	
+What is the condition of the parks?	Radio button	Bad/Good/Great	none	1:9	
+Count the number of off-road bike trails.	clicker (default 0)	n/a	none	1:10	
+Count the number of community, senior, and recreation centers.	clicker (default 0)	n/a	none	1:11	
+Count the number of VFW or American Legion halls.	clicker (default 0)	n/a	none	1:12	
+Count the number of soup kitchens.	clicker (default 0)	n/a	none	1:13	
+Count the number of homeless or women’s shelters.	clicker (default 0)	n/a	none	1:14	
+Count the number of historic sites or public monuments.	clicker (default 0)	n/a	none	done	
+					
+Table 2. Health					
+					
+Question	Answer type	Answers	Skip Logic	Next Question	Next Subquestion
+Count the number of dentist offices.	clicker (default 0)	n/a	none	2:2	
+Count the number of Clinics or Doctors offices.	clicker (default 0)	n/a	none	2:3	
+Count the number of pharmacies. (Include those in drug stores and grocery stores)	clicker (default 0)	n/a	none	2:4	
+Count the number of rehab/detox facilities.	clicker (default 0)	n/a	none	2:5	
+Count the number of Dialysis Centers.	clicker (default 0)	n/a	none	2:6	
+Count the number of hospitals.	clicker (default 0)	n/a	none	done	
+					
+Table 3. Public Transit					
+					
+Question	Answer type	Answers	Skip logic	Next Question	Next Subquestion
+Count the number of Metro Stations.	clicker (default 0)	n/a	none	3:2	
+Count the number of Bike Lanes.	clicker (default 0)	n/a	none	3:3	
+Count the number of Bike Racks.	clicker (default 0)	n/a	none	3:4	
+Count the number of Bike Share Stations.	clicker (default 0)	n/a	none	3:5	
+Count the number of Rideshare or Park & Ride Lots.	clicker (default 0)	n/a	none	3:6	
+Count the number of Taxi/Uber/Lyft Stations.	clicker (default 0)	n/a	none	3:7	
+Are there Bus Stops present?	Radio Button	Yes  No	If no, Skip to Table 0b.	done	3:8
+Count the number of bus stops with: Shelter + Bench	clicker (default 0)	n/a	none	3:9	
+Count the number of bus stops with: No Shelter + Bench	clicker (default 0)	n/a	none	3:10	
+Count the number of bus stops with: Shelter + No Bench	clicker (default 0)	n/a	none	3:11	
+Count the number of bus stops with: No Shelter + No Bench	clicker (default 0)	n/a	none	3:12	
+What is the condition of the bus stop Shelters (if any):	Radio Button	Very Poor  Poor  Fair  Excellent	If no Shelters do not ask	3:13	
+What is the condition of the bus stop Benches (if any):	Radio Button	Very Poor  Poor  Fair  Excellent	If no Benches do not ask	3:14	
+How clearly are the Bus Stops marked:	Radio Button	Extremely unclear Somewhat Unclear  Slightly Unclear   Slightly Clear  Somewhat Clear Extremely Clear	none	done	
+Please Upload a few Photos of Bus Stops on the Block.  Make sure no person is identifiable	Photo Upload	n/a	none	done	
+					
+Table 4. General Block Features					
+					
+Question	Answer type	Answers	Skip logic	Next Question	Next Subquestion
+How long is the block?	Radio Button	Less than 1/10mile  1/10 mile  More than 1/10mile   More than twice 1/10 mile	none	4:2	
+How wide is the block?	Radio Button	Less than 4 car widths   4 car widths   More than 4 Car widths   More than twice 4 car widths	none	4:3	
+Is this a Dead End Block?	Radio Button	Yes  No	none	4:4	
+Is there a Median Present?	Radio Button	Yes  No	none	4:5	
+Are there Sidewalks Present?	Radio Button	Yes  No	none	4:6	
+Estimate the Residential occupancy on the Block?	Radio Button	0%   1%-20%   21%-40%   41%-60%   61%-80%  81%-100%	none	4:7	
+Count the number of Non-Residential Properties.	clicker (default 0)	n/a	If 0, Skip next question.	4:9	4:8
+Briefly List the types of non-residential properties present.	fill in	n/a	none	4:9	
+Count the number of Street Lights.	clicker (default 0)	n/a	none	4:10	
+Count the number of Utility Poles.	clicker (default 0)	n/a	none	4:11	
+Count the number of Street Trees.	clicker (default 0)	n/a	none	4:12	
+Count the number of Murals.	clicker (default 0)	n/a	none	4:13	
+Count the number of Fire Hydrants.	clicker (default 0)	n/a	none	4:14	
+Count the number of Signalized Crosswalks.	clicker (default 0)	n/a	none	4:15	
+Count the number of Unsignaled Crosswalks.	clicker (default 0)	n/a	none	4:16	
+Count the number of Government Surveillance Cameras.	clicker (default 0)	n/a	none	4:17	
+Count the number of Non-Government Surveillance Cameras.	clicker (default 0)	n/a	none	4:18	
+Count the number of non-government signs with Positive/Neutral Messages (exclude signs with alcohol or tobacco ads)	clicker (default 0)	n/a	none	4:19	
+Count the number of non-government signs with Negative Messages (exclude signs with alcohol or tobacco ads)	clicker (default 0)	n/a	none	4:20	
+Count the number of non-government signs in Languages other than English (exclude signs with alcohol or tobacco ads)	clicker (default 0)	n/a	none	4:21	
+Are there any Traffic Calming / Speed Devices present? (i.e. Speed Bumps, Speed Limit Signs, Speed Cameras, Red Light Camera, Traffic Circles, etc)	Radio Button	Yes  No	If No, Skip to Table 0b.	done	4:22
+Count the number of Speed Bumps.	clicker (default 0)	n/a	none	4:23	
+Count the number of Speed Humps.	clicker (default 0)	n/a	none	4:24	
+Count the number of Noise Strips.	clicker (default 0)	n/a	none	4:25	
+Count the number of Speed Limit Signs.	clicker (default 0)	n/a	none	4:26	
+Count the number of Electronic Speed Monitors.	clicker (default 0)	n/a	none	4:27	
+Count the number of Speed Cameras.	clicker (default 0)	n/a	none	4:28	
+Count the number of Red Light Cameras.	clicker (default 0)	n/a	none	4:29	
+Count the number of Traffic Circles.	clicker (default 0)	n/a	none	done	
+					
+					
+Table 5. Housing					
+					
+Question	Answer type	Answers	Skip logic	Next Question	Next Subquestion
+Count any occupied, vacant, or abandoned residential structure that is not burned or semi-demolished.	clicker (default 0)	n/a	none	5:2	
+Count the number of dwelling-containing structures that are fully attached or semi-detached (e.g.,  townhouses, row houses, brownstones, and villas).	clicker (default 0)	n/a	none	5:3	
+Count the number of apartment buildings or complexes.	clicker (default 0)	n/a	none	5:4	
+Count the number of single family, free-standing homes (not attached)	clicker (default 0)	n/a	none	5:5	
+Count the number of houses with evidence of multiple units.  Description:  (e.g., multiple entrances, mailboxes, utility  meters, buzzers, etc., also multiple mailboxes with different names). The home must have one street  address, but can have multiple units (e.g., apt. A and apt. B). Do not include apartment buildings/complexes or two homes that are attached.	clicker (default 0)	n/a	none	5:6	
+Count the number of buildings designated as public housing.	clicker (default 0)	n/a	none	5:7	
+Count the number of senior housing complexes.  Description: Sometimes advertised as independent living or over 55 housing	clicker (default 0)	n/a	none	5:8	
+Count the number of assisted living facilities.	clicker (default 0)	n/a	none	5:9	
+Count the number of continuous care facilities	clicker (default 0)	n/a	none	5:10	
+Count the number of group homes (i.e. halfway houses, intermediate care facilities, disability service providers)	clicker (default 0)	n/a	none	5:11	
+Count the number of shelter housing facilities.	clicker (default 0)	n/a	none	done	
+					
+Table 6. Industry					
+					
+Question	Answer type	Answers	Skip logic	Next Question	Next Subquestion
+Are there any locations that you would consider a locally unwanted land usage or LULU?	Radio Button	Yes  No	If No, Skip next question	6:3	6:2
+Count the number of Locally Unwanted Land Uses.	clicker (default 0)	n/a	none	6:3	
+Count the number of freight trains. Do not include passenger trains or commuter trains.	clicker (default 0)	n/a	none	6:4	
+Count the number of freight train stations. Do not include passenger train stations or commuter train stations.	clicker (default 0)	n/a	none	6:5	
+Count the number of Landfills.	clicker (default 0)	n/a	none	6:6	
+Count the Number of Hazardous waste sites.	clicker (default 0)	n/a	none	6:7	
+Count the number of Sewage Treatment Plants.	clicker (default 0)	n/a	none	6:8	
+Count the number of former developed or industrial sites. These are also known as "brownfields"	clicker (default 0)	n/a	none	6:9	
+					
+Table 7. Physical Disorder					
+Question	Answer type	Possible Answers	Skip logic	Next Question	Next Subquestion
+Count the structures with broken windows.	clicker (default 0)	n/a	none	7:2	
+Count eviction notices.	clicker (default 0)	n/a	none	7:3	
+Count vacant or boarded up residences.	clicker (default 0)	n/a	none	7:4	
+Count vacant or boarded up stores.	clicker (default 0)	n/a	none	7:5	
+Count vacant lots where buildings once stood.	clicker (default 0)	n/a	none	7:6	
+Count construction or renovations sites.	clicker (default 0)	n/a	none	7:7	
+Are there public trash cans?	Radio button	Yes/ No	If No, skip the next 2 questions.	7:10	7:8
+Count trash cans that are working and not overflowing.	clicker (default 0)	n/a	none	7:9	
+Count trash cans that are broken or overflowing.	clicker (default 0)	n/a	none	7:10	
+Is there any trash outside trash cans or trash bags?	Radio button	Yes/ No	If No, skip the next 3 questions.	7:14	7:11
+How much trash is in the street? (Hover text: None=no more than 1 or 2 pieces here or there. A little=at least a grocery bags worth spread across the street or clustered in one location. Some=more than a grocery bags worth spread across the block. A lot=several grocery bags worth spread across the block or multiple piles in different locations.)	Radio button	None/ A little/ Some/ A lot	n/a	7:12	
+How much trash is on the sidewalk or next to the street? (Hover text: None=no more than 1 or 2 pieces here or there. A little=at least a grocery bags worth spread across the street or clustered in one location. Some=more than a grocery bags worth spread across the block. A lot=several grocery bags worth spread across the block or multiple piles in different locations.)	Radio button	None/ A little/ Some/ A lot	n/a	7:13	
+How much trash is in vacant lots, parks, drainage culverts, residential yards, and commercial lots (including parking lots and loading areas)? (Hover text: None=no more than 1 or 2 pieces here or there. A little=at least a grocery bags worth spread across the street or clustered in one location. Some=more than a grocery bags worth spread across the block. A lot=several grocery bags worth spread across the block or multiple piles in different locations.)	Radio button	None/ A little/ Some/ A lot	n/a	7:14	
+Are there any bulk trash items?	Radio button	Yes/ No	If No, skip the next 3 questions.	7:18	7:15
+Count bulk trash items in the street.	Radio button (default 0)	0/ 1-3/ 4-7/ 8 or more	n/a	7:16	
+Count bulk trash items on the sidewalk or next to the street.	Radio button (default 0)	0/ 1-3/ 4-7/ 8 or more	n/a	7:17	
+Count bulk trash items in other locations (Hover text: Include vacant lots, parks, drainage culverts, residential yards, commercial lots, parking lots, and loading areas.)	Radio button (default 0)	0/ 1-3/ 4-7/ 8 or more	n/a	7:18	
+Count mice and rats. (Hover text: Include alive and dead animals.)	Radio button (default 0)	0/ 1-3/ 4-7/ 8 or more	n/a	7:19	
+Count live stray animals other than mice and rats.	Radio button (default 0)	0/ 1-3/ 4-7/ 8 or more	If equal to zero, skip next question.	7:21	7:20
+What types of stray animals are there?	Multiple choice	Dogs/ Cats/ Other _______	n/a	7:21	
+Count dead animals other than mice and rats.	Radio button (default 0)	0/ 1-3/ 4-7/ 8 or more	n/a	7:22	
+Count broken or discarded glass bottles.	Radio button (default 0)	0/ 1-3/ 4-7/ 8 or more	n/a	7:23	
+Count potholes (Hover text: Include only those bigger than a grapefruit).	Radio button (default 0)	0/ 1-3/ 4-7/ 8 or more	n/a	7:24	
+Count graffiti (Hover text: Include gang or other self-promoting tags, profanity, etc. Do not include murals.)	Radio button (default 0)	0/ 1-3/ 4-7/ 8 or more	n/a	7:25	
+Count broken street signs.	Radio button (default 0)	0/ 1-3/ 4-7/ 8 or more	n/a	7:26	
+Are there sidewalks?	Radio button	Yes/ No	If No, skip the next questions.	7:28	7:27
+Count areas of sidewalk damage (Hover text: Include major cracks, missing stones or segments, and pavement that is not level.)	Radio button (default 0)	0/ 1-3/ 4-7/ 8 or more	n/a	7:28	
+Count warning signs posted on homes or other locations (Hover text: For example: no trespassing, violators will be prosecuted, no loitering, drug free zone, beware of dog, etc.).	Radio button (default 0)	0/ 1-3/ 4-7/ 8 or more	n/a	7:29	
+Are police or police vehicles present?	Radio button	Yes/ No	If No, skip the next 4 questions.	7:34	7:30
+Are there police officers cruising in a car?	Radio button	Yes/ No	n/a	7:31	
+Are there police officers in parked cars?	Radio button	Yes/ No	n/a	7:32	
+Are there police officers engaging with civilians? (Hover text: Include informal conversations, brief greetings, interviewing witnesses, taking police reports, etc.)	Radio button	Yes/ No	n/a	7:33	
+Are there instances of other police activity? (Hover text: Include making an arrest, writing a ticket, etc.).	Radio button	Yes/ No	n/a	7:34	
+Count signs or print ads related to tobacco.	Radio button (default 0)	0/ 1-3/ 4-7/ 8 or more	n/a	7:35	
+Count signs or print ads related to tobacco.	Radio button (default 0)	0/ 1-3/ 4-7/ 8 or more	n/a	7:36	
+Count security alarm signs. (Hover text: For example, Vector, Slomin, ADT.)	Radio button (default 0)	0/ 1-3/ 4-7/ 8 or more	n/a	7:37	
+Count instances of vandalism other than graffiti. (Hover text: For example, shattered car windows, pay phones pulled out of their casing, etc.)	Radio button (default 0)	0/ 1-3/ 4-7/ 8 or more	n/a	7:38	
+Count the operable cars parked on the street or in driveways.	Radio button (default 0)	0/ 1-3/ 4-7/ 8 or more	n/a	7:39	
+Count the inoperable cars parked on the street or in driveways. (Hover text: Include cars with flat tires, broken windows, debris accumulated around the tires, and cars stripped of parts and on blocks.)	Radio button (default 0)	0/ 1-3/ 4-7/ 8 or more	n/a	7:40	
+Count vehicles in front yards.	Radio button (default 0)	0/ 1-3/ 4-7/ 8 or more	n/a	7:41	
+Count commercial vehicles parked on the street.	Radio button (default 0)	0/ 1-3/ 4-7/ 8 or more	n/a	7:42	
+Count trailers parked on the street.	Radio button (default 0)	0/ 1-3/ 4-7/ 8 or more	n/a	7:43	
+Count boats parked on the street.	Radio button (default 0)	0/ 1-3/ 4-7/ 8 or more	n/a	7:44	
+Count piles of yard waste (Hover text: Include piles of logs, tree branches, etc.)	Radio button (default 0)	0/ 1-3/ 4-7/ 8 or more	n/a	7:45	
+Count sewage spills.	Radio button (default 0)	0/ 1-3/ 4-7/ 8 or more	n/a	done	
+					
+Table 8. Stores					
+					
+Question	Answer type	Possible Answers	Skip logic	Next Question	Next Subquestion
+Are there places selling liquor, including in adult entertainment and night clubs?	Radio button	Yes/ No	If No, skip the next 5 questions.	8:7	8:2
+How many liquor stores are there?	clicker (default 0)	n/a	none	8:3	
+How many convenience stores selling liquor are there?	clicker (default 0)	n/a	none	8:4	
+How many bars are there?	clicker (default 0)	n/a	none	8:5	
+How many nightclubs are there?	clicker (default 0)	n/a	none	8:6	
+How many adult entertainment clubs (strip clubs, exotic dancing clubs, etc.) are there?	clicker (default 0)	n/a	none	8:7	
+How many daycares are there?	clicker (default 0)	n/a	none	8:8	
+Are there restaurants or carry-outs?	Radio button	Yes/ No	If No, skip the next 6 questions.	8:15	8:9
+How many fast food restaurants are there?	clicker (default 0)	n/a	none	8:10	
+How many carry-outs are there?	clicker (default 0)	n/a	none	8:11	
+How many pizza parlors are there?	clicker (default 0)	n/a	none	8:12	
+How many sit-down restaurants are there?	clicker (default 0)	n/a	none	8:13	
+How many bakeries are there?	clicker (default 0)	n/a	none	8:14	
+How many coffee shops are there?	clicker (default 0)	n/a	none	8:15	
+How many gas stations are there?	clicker (default 0)	n/a	none	8:16	
+Are there grocery stores or convenience stores	Radio button	Yes/ No	If No, skip the next 2 questions.	8:19	8:17
+How many convenience stores are there?	clicker (default 0)	n/a	none	8:18	
+How many grocery stores are there?	clicker (default 0)	n/a	none	8:19	
+Are there places to get money?	Radio button	Yes/ No	If No, skip the next 4 questions.	8:24	8:20
+How many pawn shops are there?	clicker (default 0)	n/a	none	8:21	
+How many banks are there?	clicker (default 0)	n/a	none	8:22	
+How many check cashing stores are there?	clicker (default 0)	n/a	none	8:23	
+How many pay day lenders are there?	clicker (default 0)	n/a	none	8:24	
+How many cell phone stores are there?	clicker (default 0)	n/a	none	8:25	
+Are there places to clean your clothes?	Radio button	Yes/ No	If No, skip the next 2 questions.	8:28	8:26
+How many laundromats are there?	clicker (default 0)	n/a	none	8:27	
+How many dry cleaners are there?	clicker (default 0)	n/a	none	8:28	
+Are there places to repair your car or get car repair supplies?	Radio button	Yes/ No	If No, skip the next 3 questions.	8:32	8:29
+How many autobody shops are there?	clicker (default 0)	n/a	none	8:30	
+How many auto mechanics are there?	clicker (default 0)	n/a	none	8:31	
+How many auto parts stores are there?	clicker (default 0)	n/a	none	8:32	
+Are there places to get a haircut or do your nails?	Radio button	Yes/ No	If No, skip the next 3 questions.	8:36	8:33
+How many nail salons are there?	clicker (default 0)	n/a	none	8:34	
+How many barbershops are there?	clicker (default 0)	n/a	none	8:35	
+How many hair stylists are there?	clicker (default 0)	n/a	none	8:36	
+How many tattoo parlors are there?	clicker (default 0)	n/a	none	8:37	
+Are there any places to buy shoes or clothing, including used shoes and clothing?	Radio button	Yes/ No	If No, skip the next 3 questions.	8:41	8:38
+How many shoe stores are there?	clicker (default 0)	n/a	none	8:39	
+How many clothing stores are there?	clicker (default 0)	n/a	none	8:40	
+How many department stores are there?	clicker (default 0)	n/a	none	8:41	
+How many parking garages are there?	clicker (default 0)	n/a	none	8:42	
+Are there places to buy toys and housewares, including used items?	Radio button	Yes/ No	If No, skip the next 3 questions.	8:46	8:43
+How many thrift stores are there?	clicker (default 0)	n/a	none	8:44	
+How many dollar stores are there?	clicker (default 0)	n/a	none	8:45	
+How many department stores are there?	clicker (default 0)	n/a	none	8:46	
+How many used car sales lots are there?	clicker (default 0)	n/a	none	8:47	
+How many medical supply stores are there?	clicker (default 0)	n/a	none	8:48	
+Are there other types of stores or businesses?	Radio button	Yes/ No	If No, skip the next 2 questions.	8:51	8:49
+List any other stores or businesses. Count how many there are of each type. For example: Book stores (2), Candy stores (1).	Fill in the blank	n/a	n/a	8:50	
+Are there people selling things from the street?	Radio button	Yes/ No	If No, skip the next 2 questions.	8:53	8:51
+How many food trucks are there?	clicker (default 0)	n/a	none	8:52	
+How many push carts are there?	clicker (default 0)	n/a	none	8:53	
+How many flower sellers are there?	clicker (default 0)	n/a	none	8:54	
+List any other people or businesses that are selling things from the street. Count how many there are of each type. For example: Fruit and vegetable sellers (2), Umbrella sellers (1).	Fill in the blank	n/a	n/a	done	

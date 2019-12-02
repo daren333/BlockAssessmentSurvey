@@ -2,21 +2,30 @@ package com.example.blockassessmentsurvey
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity.CENTER
 import android.view.View
 import android.widget.*
+
 import androidx.core.view.updatePadding
 import java.lang.IllegalStateException
 
 import android.widget.Toast
 
+import androidx.appcompat.app.AppCompatActivity
+
+
+private lateinit var radioContainer : RadioGroup
+
+
+
 class MultipleChoiceActivity : AppCompatActivity() {
 
     private var questionText: TextView? = null
     private var doneBtn: ImageButton? = null
+    private var progressBar: ProgressBar? = null
+    private var submitButton: Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,10 +41,15 @@ class MultipleChoiceActivity : AppCompatActivity() {
 
         val questions = intent.getStringExtra(QANSWER_STRING)
 
-        val radioContainer = findViewById<RadioGroup>(R.id.radioGroup)
-        radioContainer.setOrientation(LinearLayout.HORIZONTAL)
+        progressBar = findViewById(R.id.progressBar4)
 
-        for (option in questions.split(",")){
+        val questionProgress = intent.getStringExtra(PROGRESS_STRING)
+        progressBar!!.setProgress(questionProgress.toInt())
+
+        radioContainer = findViewById<RadioGroup>(R.id.radioGroup)
+        radioContainer.setOrientation(LinearLayout.VERTICAL)
+
+        for (option in questions.split("/")){
 
             val toAdd = RadioButton(this)
             toAdd.id = View.generateViewId()
@@ -53,32 +67,55 @@ class MultipleChoiceActivity : AppCompatActivity() {
             radioContainer.addView(toAdd)
         }
 
-        doneBtn = findViewById(R.id.done)
+        submitButton = findViewById(R.id.submit)
 
-        doneBtn?.setOnClickListener({
+        submitButton?.setOnClickListener {
+            setResult(Activity.RESULT_CANCELED)
+            finish()
+        }
 
+        doneBtn = findViewById(R.id.next)
+
+        doneBtn?.setOnClickListener{ submit() }
+
+//        radioContainer.checkedRadioButtonId.text
+
+//
+//
+//            //gets the selected radio buttons text
+//            var ans = ""
+//
+//                try {
+//                    ans =
+//                        findViewById<RadioButton>(radioContainer!!.checkedRadioButtonId).text.toString()
+//                } catch (e: IllegalStateException) {
+//                    val t = Toast.makeText(this,"Please select an answer", Toast.LENGTH_LONG)
+//                    t. show()
+//                    return@setOnClickListener
+//                }
+
+
+
+
+
+    }
+
+    private fun submit() {
+
+
+        //gets the selected radio buttons text
+        val ans = findViewById<RadioButton>(radioContainer.checkedRadioButtonId)
+
+        if(ans == null) {
+            Toast.makeText(applicationContext, "Please select an answer to continue.", Toast.LENGTH_LONG).show()
+            return
+        }
+        else {
 
             val data = Intent()
 
-
-
-
-            //gets the selected radio buttons text
-            var ans = ""
-
-                try {
-                    ans =
-                        findViewById<RadioButton>(radioContainer!!.checkedRadioButtonId).text.toString()
-                } catch (e: IllegalStateException) {
-                    val t = Toast.makeText(this,"Please select an answer", Toast.LENGTH_LONG)
-                    t. show()
-                    return@setOnClickListener
-                }
-
-//            Log.i(TAG,ans)
-
             // puts the ans text into the intent
-            data.putExtra(QANSWER_STRING,ans)
+            data.putExtra(QANSWER_STRING, ans.text.toString())
 
             //put the question id in the intent
             data.putExtra(QID_STRING, intent.getStringExtra(QID_STRING))
@@ -86,18 +123,11 @@ class MultipleChoiceActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK, data)
             finish()
 
+            Log.i(TAG, ans.text.toString())
 
-
-            Log.i(TAG,ans)
-
-        })
-
-//        radioContainer.checkedRadioButtonId.text
-
-
-
+            return
+        }
     }
-
 
 
     companion object {
@@ -105,6 +135,6 @@ class MultipleChoiceActivity : AppCompatActivity() {
         private val QUESTION_STRING = "questionstring"
         private val QANSWER_STRING = "qanswer"
         private val QID_STRING = "qid"
-
+        private val PROGRESS_STRING = "progess"
     }
 }

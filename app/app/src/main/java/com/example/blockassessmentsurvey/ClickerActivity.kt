@@ -8,6 +8,9 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+
+import android.widget.*
+
 import androidx.appcompat.app.AppCompatActivity
 
 class ClickerActivity : AppCompatActivity() {
@@ -17,6 +20,11 @@ class ClickerActivity : AppCompatActivity() {
     private var addCount: ImageButton? = null
     private var removeCount: ImageButton? = null
     private var doneBtn: ImageButton? = null
+    private var backBtn: ImageButton? = null
+    private var progressBar: ProgressBar? = null
+    private var submitButton: Button? = null
+
+    private var finished: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +40,15 @@ class ClickerActivity : AppCompatActivity() {
         addCount = findViewById(R.id.add)
         removeCount = findViewById(R.id.remove)
 
-        doneBtn = findViewById(R.id.done)
+        doneBtn = findViewById(R.id.next)
+        backBtn = findViewById(R.id.back)
+        submitButton = findViewById(R.id.submit)
+
+        progressBar = findViewById(R.id.progressBar)
+
+        val questionProgress = intent.getStringExtra(PROGRESS_STRING)
+        progressBar!!.setProgress(questionProgress.toInt())
+
         addCount?.setOnClickListener {
             val txt = countText?.text.toString()
 
@@ -114,6 +130,22 @@ class ClickerActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK, data)
             finish()
         }
+
+        //When the user clicks on the done button returns to survey manager
+        backBtn?.setOnClickListener {
+            val data = Intent()
+
+            //put the question id in the intent
+            data.putExtra(QID_STRING, intent.getStringExtra(QID_STRING))
+
+            setResult(Activity.RESULT_CANCELED, data)
+            finish()
+        }
+
+        submitButton?.setOnClickListener {
+            setResult(Activity.RESULT_CANCELED)
+            finish()
+        }
     }
 
     companion object {
@@ -121,5 +153,6 @@ class ClickerActivity : AppCompatActivity() {
         private val QUESTION_STRING = "questionstring"
         private val QANSWER_STRING = "qanswer"
         private val QID_STRING = "qid"
+        private val PROGRESS_STRING = "progess"
     }
 }

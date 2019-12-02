@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MultipleChoiceActivity">
+    tools:context=".MultipleAnswerActivity">
+
 
     <TextView
         android:id="@+id/QuestionText"
@@ -21,22 +22,43 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/radioGroup2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/QuestionText"
-        tools:layout_editor_absoluteX="205dp" />
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="@+id/QuestionText"
+        app:layout_constraintTop_toBottomOf="@+id/QuestionText">
+
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:ems="10"
+        android:hint="Please describe:"
+        android:inputType="textMultiLine"
+        android:lastBaselineToBottomHeight="5dp"
+        android:lines="8"
+        android:maxLines="8"
+        android:minLines="1"
+        android:outlineProvider="none"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
 
     <ImageButton
         android:id="@+id/next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
 
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="100dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/editText"
         app:srcCompat="@drawable/ic_arrow_forward_black_24dp" />
 
     <ImageButton
@@ -47,23 +69,23 @@
         android:layout_marginStart="100dp"
         android:layout_marginTop="100dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/editText"
         app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
 
     <Button
         android:id="@+id/submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
 
+
+        android:layout_marginTop="15dp"
         android:text="Submit Survey"
         app:layout_constraintEnd_toEndOf="@+id/next"
-        app:layout_constraintHorizontal_bias="0.585"
         app:layout_constraintStart_toStartOf="@+id/back"
         app:layout_constraintTop_toBottomOf="@+id/back" />
 
     <ProgressBar
-        android:id="@+id/progressBar4"
+        android:id="@+id/progressBar3"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="225dp"
         android:layout_height="40dp"
@@ -83,11 +105,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar4" />
+        app:layout_constraintTop_toBottomOf="@+id/progressBar3" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-

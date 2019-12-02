@@ -12,21 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ClickerActivity"></activity>
+        <activity android:name=".ClickerActivity" />
+        <activity android:name=".ThankYouActivity" />
         <activity android:name=".MultipleChoiceActivity" />
+        <activity android:name=".MultipleAnswerActivity" />
         <activity android:name=".TextActivity" />
-        <activity android:name=".LikertActivity" />
-        <activity android:name=".SurveySelectorActivity" />
-        <activity
-            android:name=".CounterActivity"
-            android:label="@string/title_activity_counter"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SurveyManager" />
+        <activity android:name=".fillInTheBlankActivity" />
         <activity
             android:name=".GpsLocationActivity"
-            android:label="@string/title_activity_get_gps_location"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".HelloActivity" />
+            android:label="@string/title_activity_get_gps_location" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
