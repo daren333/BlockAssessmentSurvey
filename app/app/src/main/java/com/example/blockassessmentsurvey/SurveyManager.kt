@@ -48,7 +48,7 @@ class SurveyManager : AppCompatActivity() {
 
 
         //get reference to database
-        databaseQuestions = FirebaseDatabase.getInstance().getReference("questions")
+        databaseQuestions = FirebaseDatabase.getInstance().getReference("Questions_Test_Run")
         databaseUser = FirebaseDatabase.getInstance().getReference("users").child(userID)
         databaseResults = FirebaseDatabase.getInstance().getReference("results")
         databaseSurveyInfo = FirebaseDatabase.getInstance().getReference("surveys")
@@ -240,7 +240,7 @@ class SurveyManager : AppCompatActivity() {
             results["address"] = addr
             // ask weather question
             val weatherQuestion = Question("weather", "What best describes the current Weather Conditions?",
-                    "Good/Fair, Extremely Cold or Extremely Hot, Overcast, Rainy", firstQuestion, "",
+                    "Good or Fair/Extremely Cold or Extremely Hot/Overcast/Rainy", firstQuestion, "",
                     TYPE_MC, "0", "none", "0")
 
             sendQuestion(weatherQuestion)
@@ -418,6 +418,17 @@ class SurveyManager : AppCompatActivity() {
 
                 }
             })
+        }
+    }
+
+    override fun onResume(){
+        super.onResume()
+
+        for(survey in surveyStatus.keys){
+            if(surveyStatus.get(survey) == "done"){
+                val surveyNum : Int = survey[0].toString().toInt()
+                surveyNumToButton[surveyNum]!!.setImageTintList(ColorStateList.valueOf(getColor(R.color.completed_survey)))
+            }
         }
     }
 

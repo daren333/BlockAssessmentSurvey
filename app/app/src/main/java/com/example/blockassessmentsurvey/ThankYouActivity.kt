@@ -2,7 +2,7 @@ package com.example.blockassessmentsurvey
 
 import android.app.Activity
 import android.os.Bundle
-import android.widget.ImageButton
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 class ThankYouActivity : AppCompatActivity() {
 
     private var message: TextView? = null
-    private var doneBtn: ImageButton? = null
+    private var doneBtn: Button? = null
     private var progressBar: ProgressBar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
