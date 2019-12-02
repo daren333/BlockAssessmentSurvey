@@ -9,6 +9,9 @@ import android.view.Gravity.CENTER
 import android.view.View
 import android.widget.*
 import androidx.core.view.updatePadding
+import java.lang.IllegalStateException
+
+import android.widget.Toast
 
 class MultipleChoiceActivity : AppCompatActivity() {
 
@@ -58,8 +61,21 @@ class MultipleChoiceActivity : AppCompatActivity() {
             val data = Intent()
 
 
+
+
             //gets the selected radio buttons text
-            val ans = findViewById<RadioButton>(radioContainer!!.checkedRadioButtonId).text.toString()
+            var ans = ""
+
+                try {
+                    ans =
+                        findViewById<RadioButton>(radioContainer!!.checkedRadioButtonId).text.toString()
+                } catch (e: IllegalStateException) {
+                    val t = Toast.makeText(this,"Please select an answer", Toast.LENGTH_LONG)
+                    t. show()
+                    return@setOnClickListener
+                }
+
+//            Log.i(TAG,ans)
 
             // puts the ans text into the intent
             data.putExtra(QANSWER_STRING,ans)
