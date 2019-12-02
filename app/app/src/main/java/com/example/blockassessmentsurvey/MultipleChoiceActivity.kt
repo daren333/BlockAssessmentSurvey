@@ -7,12 +7,6 @@ import android.util.Log
 import android.view.Gravity.CENTER
 import android.view.View
 import android.widget.*
-
-import androidx.core.view.updatePadding
-import java.lang.IllegalStateException
-
-import android.widget.Toast
-
 import androidx.appcompat.app.AppCompatActivity
 
 
@@ -24,6 +18,8 @@ class MultipleChoiceActivity : AppCompatActivity() {
 
     private var questionText: TextView? = null
     private var doneBtn: ImageButton? = null
+    private var backBtn: ImageButton? = null
+
     private var progressBar: ProgressBar? = null
     private var submitButton: Button? = null
 
@@ -78,6 +74,17 @@ class MultipleChoiceActivity : AppCompatActivity() {
 
         doneBtn?.setOnClickListener{ submit() }
 
+        backBtn = findViewById(R.id.back)
+
+        backBtn?.setOnClickListener {
+            val data = Intent()
+
+            //put the question id in the intent
+            data.putExtra(QID_STRING, intent.getStringExtra(QID_STRING))
+
+            setResult(Activity.RESULT_CANCELED, data)
+            finish()
+        }
 
     }
 

@@ -68,6 +68,7 @@ class LoginActivity : AppCompatActivity() {
                     intent.putExtra("UserID", currUid)
                     progressBar!!.visibility = View.GONE
                     startActivity(intent)
+                    finish()
                 } else {
                     Toast.makeText(
                         applicationContext,

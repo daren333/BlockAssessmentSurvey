@@ -18,6 +18,8 @@ class MultipleAnswerActivity : AppCompatActivity() {
     private var doneBtn: ImageButton? = null
     private var progressBar: ProgressBar? = null
     private var submitButton: Button? = null
+    private var backBtn: ImageButton? = null
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,6 +68,16 @@ class MultipleAnswerActivity : AppCompatActivity() {
         doneBtn = findViewById(R.id.next)
 
         doneBtn?.setOnClickListener{ submit() }
+
+        backBtn?.setOnClickListener {
+            val data = Intent()
+
+            //put the question id in the intent
+            data.putExtra(QID_STRING, intent.getStringExtra(QID_STRING))
+
+            setResult(Activity.RESULT_CANCELED, data)
+            finish()
+        }
 
 
 
