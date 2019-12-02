@@ -388,7 +388,7 @@ class SurveyManager : AppCompatActivity() {
                     for(post in dataSnapshot.children){
                         //get the question
                         val curr = post.toString()
-                        //Log.i(TAG, "Got: $curr from database")
+                        Log.i(TAG, "Got: $curr from database")
                         val question = post.getValue<Question>(Question::class.java)!!
                         //add it to the list
                         sQuestions[question.qid] = question

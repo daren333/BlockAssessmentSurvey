@@ -4,7 +4,13 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.TextView
+import android.widget.Toast
+
 import android.widget.*
+
 import androidx.appcompat.app.AppCompatActivity
 
 class ClickerActivity : AppCompatActivity() {
@@ -50,7 +56,14 @@ class ClickerActivity : AppCompatActivity() {
                 countText?.setText(1.toString())
             }
             else {
-                var cnt = txt.toInt()
+
+                var cnt = 0
+
+                try {
+                    cnt = txt.toInt()
+                } catch(e: NumberFormatException){
+                    cnt = 0
+                }
                 cnt += 1
                 countText?.setText(cnt.toString())
             }
@@ -62,7 +75,13 @@ class ClickerActivity : AppCompatActivity() {
                 countText?.setText("0")
             }
             else {
-                var cnt = txt.toInt()
+                var cnt = 0
+
+                try {
+                    cnt = txt.toInt()
+                } catch(e: NumberFormatException){
+                    cnt = 0
+                }
 
                 if(cnt <= 0){
                     cnt = 0
@@ -80,7 +99,27 @@ class ClickerActivity : AppCompatActivity() {
             val data = Intent()
 
             // puts the counter in the intent
-            data.putExtra(QANSWER_STRING,countText?.text.toString())
+            var ans = 0
+
+            //Checks to make sure a number was inputted
+            try {
+                ans = countText!!.text.toString().toInt()
+            }catch(e: java.lang.NumberFormatException){
+                val t = Toast.makeText(this,"Please put a number", Toast.LENGTH_LONG)
+                t. show()
+                countText?.setText("")
+                return@setOnClickListener
+            }
+
+            //checks if the answer was bigger non negative
+            if(ans < 0){
+                val t = Toast.makeText(this,"Please put a number 0 or bigger", Toast.LENGTH_LONG)
+                t. show()
+                countText?.setText("")
+                return@setOnClickListener
+            }
+            
+            data.putExtra(QANSWER_STRING,ans.toString())
 
             //put the question id in the intent
             data.putExtra(QID_STRING, intent.getStringExtra(QID_STRING))

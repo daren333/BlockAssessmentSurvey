@@ -7,10 +7,17 @@ import android.util.Log
 import android.view.Gravity.CENTER
 import android.view.View
 import android.widget.*
+
+import androidx.core.view.updatePadding
+import java.lang.IllegalStateException
+
+import android.widget.Toast
+
 import androidx.appcompat.app.AppCompatActivity
 
 
 private lateinit var radioContainer : RadioGroup
+
 
 
 class MultipleChoiceActivity : AppCompatActivity() {
@@ -70,9 +77,6 @@ class MultipleChoiceActivity : AppCompatActivity() {
         doneBtn = findViewById(R.id.next)
 
         doneBtn?.setOnClickListener{ submit() }
-
-//        radioContainer.checkedRadioButtonId.text
-
 
 
     }
