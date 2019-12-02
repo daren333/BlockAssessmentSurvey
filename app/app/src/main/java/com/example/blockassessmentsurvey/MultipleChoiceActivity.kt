@@ -42,7 +42,7 @@ class MultipleChoiceActivity : AppCompatActivity() {
         radioContainer = findViewById<RadioGroup>(R.id.radioGroup)
         radioContainer.setOrientation(LinearLayout.VERTICAL)
 
-        for (option in questions.split("/")){
+        for (option in questions.split(",")){
 
             val toAdd = RadioButton(this)
             toAdd.id = View.generateViewId()

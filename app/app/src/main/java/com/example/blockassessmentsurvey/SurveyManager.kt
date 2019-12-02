@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.os.SystemClock.sleep
 import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
@@ -48,7 +49,7 @@ class SurveyManager : AppCompatActivity() {
 
 
         //get reference to database
-        databaseQuestions = FirebaseDatabase.getInstance().getReference("Questions_Test_Run")
+        databaseQuestions = FirebaseDatabase.getInstance().getReference("questions")
         databaseUser = FirebaseDatabase.getInstance().getReference("users").child(userID)
         databaseResults = FirebaseDatabase.getInstance().getReference("results")
         databaseSurveyInfo = FirebaseDatabase.getInstance().getReference("surveys")
@@ -240,7 +241,7 @@ class SurveyManager : AppCompatActivity() {
             results["address"] = addr
             // ask weather question
             val weatherQuestion = Question("weather", "What best describes the current Weather Conditions?",
-                    "Good or Fair/Extremely Cold or Extremely Hot/Overcast/Rainy", firstQuestion, "",
+                    "Good or Fair,Extremely Cold or Extremely Hot,Overcast,Rainy", firstQuestion, "",
                     TYPE_MC, "0", "none", "0")
 
             sendQuestion(weatherQuestion)
