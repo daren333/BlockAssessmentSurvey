@@ -51,7 +51,7 @@ def build_json_obj(q):
 
 
 # Firebase credentials & SDK setup
-cred = credentials.Certificate("/Users/dansher/Documents/UMD/courses/fall_2019/Handheld_Programming/blockassessmentsurvey-firebase-adminsdk-nl97q-ef495105d2.json")
+cred = credentials.Certificate("path_to_firebase_cert")
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://blockassessmentsurvey.firebaseio.com/'
 })
@@ -61,8 +61,7 @@ ref = db.reference('Questions_Test_Run')
 print(ref.get())
 
 # Open questions file
-#q_file = open('/Users/dansher/Documents/UMD/courses/fall_2019/Handheld_Programming/BlockAssessmentSurvey/sample_questions.tsv')
-q_file = open('/Users/dansher/class_repos/436_project_demo/BlockAssessmentSurvey/sample_questions.tsv')
+q_file = open('path_to_sample_questions')
 flag = 0
 counter = 0
 survey_num = 0
